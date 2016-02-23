@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C7E45AC5-E64D-261F-DF12-5BF4A531E67F}</ProjectGuid>
+    <ProjectGuid>{0E6A7987-0CB8-F888-0A22-54F1E345D877}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -48,10 +48,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Map.cs" />
-     <Compile Include="Assets\Scripts\MapCell.cs" />
-     <Compile Include="Assets\Scripts\MapCellType.cs" />
-     <Compile Include="Assets\Scripts\Tank.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Util\MonoBehaviorSingleton.cs" />
+     <Compile Include="Assets\Scripts\Game\Debug\UITest.cs" />
+     <Compile Include="Assets\Scripts\Game\Map\Map.cs" />
+     <Compile Include="Assets\Scripts\Game\Map\MapCell.cs" />
+     <Compile Include="Assets\Scripts\Game\Map\MapCellType.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\Tank.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\TankHull.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\TankHullState.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\TankTurret.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\TankTurretState.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -59,7 +65,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Vectrosity">
- <HintPath>/Users/diego/Documents/Projects/Tanks/Assets/Plugins/Vectrosity.dll</HintPath>
+ <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

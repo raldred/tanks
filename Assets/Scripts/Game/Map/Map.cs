@@ -4,7 +4,7 @@ using System.Collections;
 using Vectrosity;
 
 [ExecuteInEditMode]
-public class Map : MonoBehaviour
+public class Map : MonoBehaviorSingleton<Map>
 {
 	/// <summary>
 	/// Number of rows of the map
@@ -39,6 +39,7 @@ public class Map : MonoBehaviour
 		DrawGrid();
 	}
 
+    // Draw the debug grid lines
 	void DrawGrid()
 	{
 		if (MapData == null) return;
@@ -87,6 +88,7 @@ public class Map : MonoBehaviour
 		return true;
 	}
 
+    // Convert from world position to map position
 	public bool WorldPosToRowCol(Vector3 pos, out int row, out int col)
 	{
 		col = 0;
@@ -94,4 +96,11 @@ public class Map : MonoBehaviour
 		return true;
 	}
 
+    // Check the map position
+    public bool CheckPos(int row, int col)
+    {
+        bool check = (row >= 0 && row < Rows && col >= 0 && col < Cols);
+        Debug.AssertFormat(check, "Map.CheckPos failed. Row / Col: {0} / {1} is not valid.", row, col);
+        return check;
+    }
 }
