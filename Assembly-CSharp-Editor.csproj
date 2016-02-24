@@ -48,7 +48,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Enums, Structs and Serializables\AnimationTriggersExtendedDrawer.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Enums, Structs and Serializables\ColorBlockExtendedDrawer.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Enums, Structs and Serializables\SpriteStateExtendedDrawer.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Miscellaneous\BitMaskEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Miscellaneous\ColorPropertyDrawer.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Miscellaneous\UIAnimatorControllerGenerator.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Raycast Filters\UICircularRaycastFilterEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Raycast Filters\UIRectangularRaycastFilterEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Tools\NavigationTools.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectFieldEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectField_ArrowEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectField_LabelEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectField_ListEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIButtonExtendedEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIButtonExtended_TargetEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIDragObjectEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIHighlightTransitionEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UISliderExtendedEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UITabEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIWindowEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPAtlasBuilder.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPDropWindow.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPInstanceEditor.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPReferenceReplacerWindow.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPSettings.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPSpriteImportData.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPTools.cs" />
      <Compile Include="Assets\VSCode\Plugins\Editor\VSCode.cs" />
+     <None Include="Assets\Holo UI for UGUI\Readme.txt" />
+     <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
+     <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Changelog.txt" />
+     <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\readme.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -74,7 +105,10 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
  <Reference Include="Vectrosity">
- <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity.dll</HintPath>
+ <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity/Vectrosity.dll</HintPath>
+ </Reference>
+ <Reference Include="VectrosityEditor">
+ <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity/Editor/VectrosityEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>

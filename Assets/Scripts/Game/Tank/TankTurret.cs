@@ -1,15 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class TankTurret : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
+﻿
+public class TankTurret
+{
+    // Custom Start Method
+	public void Start()
+    {
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+    // Custom Update Method
+	public void Update()
+    {
 	}
 }

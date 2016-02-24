@@ -1,8 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// Unity Engine
+using UnityEngine;
+
+// Vectrosity
+using Vectrosity;
 
 public class Tank : MonoBehaviour
 {
+    public Color debugLineColor = Color.blue;
+    
     // Hull Rotation Speed
     float hullRotationSpeed = 1.0f;
     
@@ -38,6 +43,8 @@ public class Tank : MonoBehaviour
     }
     
     MoveVars moveVars = new MoveVars();
+    
+    VectorLine vl;
     
     // Turret
     TankTurret turret;
@@ -104,9 +111,7 @@ public class Tank : MonoBehaviour
         moveVars.quatTo = Quaternion.Euler(0.0f, transform.eulerAngles.y + angle, 0.0f);
     }
 
-	/// <summary>
-	/// Rotate the tower clockwise using an absolute angle
-	/// </summary>
+	// Rotate the tower clockwise using an absolute angle
 	public void RotateTurretAbs(float angle)
 	{
 		
@@ -133,6 +138,10 @@ public class Tank : MonoBehaviour
         }
         //Map.Instance.WorldPosToRowCol
         
+        vl = VectorLine.SetLine3D(debugLineColor, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(moveVars.targetPos.x, moveVars.targetPos.y + 0.1f, moveVars.targetPos.z));
+        vl.SetWidth(2.0f);
+        vl.Draw3D();
+        
 	}
 
 	/// <summary>
@@ -143,4 +152,11 @@ public class Tank : MonoBehaviour
 	{
 		return false;
 	}
+    
+    public void DebugMove1()
+    {
+        MoveToWorldPos(new Vector3(35f, 0f, 35f));
+    }
+    
+
 }

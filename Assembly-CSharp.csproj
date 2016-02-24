@@ -48,6 +48,56 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Demo Scripts\DeskManagement.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Effects\Gradient.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Effects\NicerOutline.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Enums, Structs and Serializables\AnimationTriggersExtended.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Enums, Structs and Serializables\ColorBlockExtended.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Enums, Structs and Serializables\SpriteStateExtended.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Enums, Structs and Serializables\UIWindowID.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\BitMaskAttribute.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\BreakPrefabConnection.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\CommonColorBuffer.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\LetterSpacing.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\NameAppendIndex.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\UITextSetValue.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\UIToggleWindowAndTab.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Miscellaneous\UIUtility.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Raycast Filters\UICircularRaycastFilter.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Raycast Filters\UIIgnoreRaycast.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Raycast Filters\UIMaskRaycastFilter.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Raycast Filters\UIRectangularRaycastFilter.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Test Scripts\Test_Fill.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\ColorTween.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\FloatTween.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\ITweenValue.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\TweenEasing.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\TweenEasingHandler.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\TweenRunner.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\Vector2Tween.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\Tweening\Vector3Tween.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\Select Field\UISelectField.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\Select Field\UISelectField_Arrow.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\Select Field\UISelectField_Label.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\Select Field\UISelectField_List.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\Select Field\UISelectField_Option.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIButtonExtended.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIButtonExtended_Target.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIDragObject.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIFlippable.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIHighlightTransition.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIPagination.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIScrollingProxy.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UISliderExtended.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UISpriteAnimation.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UITab.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIWindow.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Scripts\UI\UIWindowManager.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPAction.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPActionType.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPInstance.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPSpriteInfo.cs" />
+     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\UITexturePacker.cs" />
      <Compile Include="Assets\Scripts\FrameLord\Util\MonoBehaviorSingleton.cs" />
      <Compile Include="Assets\Scripts\Game\Debug\UITest.cs" />
      <Compile Include="Assets\Scripts\Game\Map\Map.cs" />
@@ -58,6 +108,10 @@
      <Compile Include="Assets\Scripts\Game\Tank\TankHullState.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankTurret.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankTurretState.cs" />
+     <None Include="Assets\Holo UI for UGUI\Readme.txt" />
+     <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
+     <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Changelog.txt" />
+     <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -65,7 +119,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Vectrosity">
- <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity.dll</HintPath>
+ <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity/Vectrosity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

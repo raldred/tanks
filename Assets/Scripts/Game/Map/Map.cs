@@ -1,43 +1,65 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 using Vectrosity;
 
 [ExecuteInEditMode]
 public class Map : MonoBehaviorSingleton<Map>
 {
-	/// <summary>
-	/// Number of rows of the map
-	/// </summary>
+    const float GridLineWidth = 2.0f;
+    
+	// Number of rows of the map
 	public int Rows = 15;
 
-	/// <summary>
-	/// Number of cols of the map
-	/// </summary>
+	// Number of cols of the map
 	public int Cols = 15;
 
-	/// <summary>
-	/// Cell size
-	/// </summary>
+	// Cell size
 	public float cellSize = 3.0f;
 
-	/// <summary>
-	/// Map data structure
-	/// </summary>
+	// Map data structure
 	public MapCell[,] MapData;
 
-	/// <summary>
-	/// Unity Start Method
-	/// </summary>
+    public bool gridLineVisible = true;
+
+    public bool GridLineVisible
+    {
+        get { return gridLineVisible; }
+        set { 
+            gridLineVisible = value;
+            for (int i=0; i<gridLines.Length; i++)
+            {
+                gridLines[i].SetWidth(0.0f);
+            }
+        }
+    }
+    
+    public void GridLineVisibleChange()
+    {
+        gridLineVisible = !gridLineVisible;
+        
+        if (gridLineVisible)
+        {
+            for (int i=0; i<gridLines.Length; i++) gridLines[i].SetWidth(GridLineWidth);
+        }
+        else
+        {
+            for (int i=0; i<gridLines.Length; i++) gridLines[i].SetWidth(0.0f);
+        }
+    }
+    
+
+	// Unity Start Method
 	void Start()
 	{
 		CreateMapData();
+        
+        if (Application.isPlaying) DrawGridV();
 	}
-
-	void OnDrawGizmos()
-	{
-		DrawGrid();
-	}
+    
+    void OnDrawGizmos()
+    {
+        DrawGrid();
+    }
 
     // Draw the debug grid lines
 	void DrawGrid()
@@ -65,6 +87,56 @@ public class Map : MonoBehaviorSingleton<Map>
 			}
 		}
 	}
+    
+    VectorLine[] gridLines;
+    
+    // Draw the map grid line
+    void DrawGridV()
+    {
+        if (MapData == null) return;
+     
+        Vector3 v1, v2;
+     
+        gridLines = new VectorLine[Rows + Cols + 2];
+        int idx = 0;
+        
+        float cellSizeDiv2 = cellSize / 2.0f;
+		for (int row=0; row<Rows; row++)
+		{
+            v1 = new Vector3(row * cellSize - cellSizeDiv2, 0.1f, -cellSizeDiv2);
+            v2 = new Vector3(row * cellSize - cellSizeDiv2, 0.1f, Cols * cellSize - cellSizeDiv2);
+            
+            gridLines[idx++] = VectorLine.SetLine3D(Color.red, v1, v2);
+            gridLines[idx - 1].SetWidth(GridLineWidth);
+        }
+        v1 = new Vector3(Rows * cellSize - cellSizeDiv2, 0.1f, -cellSizeDiv2);
+        v2 = new Vector3(Rows * cellSize - cellSizeDiv2, 0.1f, Cols * cellSize - cellSizeDiv2);
+        gridLines[idx++] = VectorLine.SetLine3D(Color.red, v1, v2);
+        gridLines[idx - 1].SetWidth(GridLineWidth);
+        gridLines[idx - 1].Draw();
+            
+		for (int col=0; col<Cols; col++)
+		{
+            v1 = new Vector3(-cellSizeDiv2, 0.1f, col * cellSize - cellSizeDiv2);
+            v2 = new Vector3(Rows * cellSize - cellSizeDiv2, 0.1f, col * cellSize - cellSizeDiv2);
+            
+            gridLines[idx++] = VectorLine.SetLine3D(Color.red, v1, v2);
+            gridLines[idx - 1].SetWidth(GridLineWidth);
+        }
+        v1 = new Vector3(-cellSizeDiv2, 0.1f, Cols * cellSize - cellSizeDiv2);
+        v2 = new Vector3(Rows * cellSize - cellSizeDiv2, 0.1f, Cols * cellSize - cellSizeDiv2);
+        gridLines[idx++] = VectorLine.SetLine3D(Color.red, v1, v2);
+        gridLines[idx - 1].SetWidth(GridLineWidth);
+        
+        if (gridLineVisible)
+        {
+            for (int i=0; i<gridLines.Length; i++)
+            {
+                gridLines[i].Draw3D();
+            }
+        }
+        
+    }
 
 	void CreateMapData()
 	{
