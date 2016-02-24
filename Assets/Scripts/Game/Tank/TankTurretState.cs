@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public enum TankTurretState
+﻿public enum TankTurretState
 {
     Idle,
+    Rotating,
     Firing,
     Cooldown,
 }

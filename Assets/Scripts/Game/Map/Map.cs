@@ -198,11 +198,11 @@ public class Map : MonoBehaviorSingleton<Map>
 	}
 
     // Convert from world position to map position
-	public bool WorldPosToRowCol(Vector3 pos, out int row, out int col)
+	public KeyValuePair<int, int> WorldPosToRowCol(Vector3 pos)
 	{
-		col = 0;
-		row = 0;
-		return true;
+        int row = (int) (pos.x / cellSize);
+        int col = (int) (pos.z / cellSize);
+		return new KeyValuePair<int, int>(row, col);
 	}
 
     // Check the map position
