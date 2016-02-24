@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 using Vectrosity;
 
@@ -19,6 +20,8 @@ public class Map : MonoBehaviorSingleton<Map>
 	// Map data structure
 	public MapCell[,] MapData;
 
+    VectorLine[] gridLines;
+
     public bool gridLineVisible = true;
 
     public bool GridLineVisible
@@ -33,35 +36,35 @@ public class Map : MonoBehaviorSingleton<Map>
         }
     }
     
+    // Called from the UI. Change the visible state of the debug lines
     public void GridLineVisibleChange()
     {
         gridLineVisible = !gridLineVisible;
-        
-        if (gridLineVisible)
-        {
-            for (int i=0; i<gridLines.Length; i++) gridLines[i].SetWidth(GridLineWidth);
-        }
-        else
-        {
-            for (int i=0; i<gridLines.Length; i++) gridLines[i].SetWidth(0.0f);
-        }
+        for (int i=0; i<gridLines.Length; i++) gridLines[i].SetWidth(gridLineVisible ? GridLineWidth : 0.0f);
     }
-    
 
 	// Unity Start Method
 	void Start()
 	{
 		CreateMapData();
         
-        if (Application.isPlaying) DrawGridV();
+        if (Application.isPlaying)
+        {
+            DrawGridV();
+        
+            PopulateMapInfoWithObstacles();
+            
+            DrawGridObstacles();
+        }
 	}
     
+    // Unity OnDrawGizmos Method
     void OnDrawGizmos()
     {
         DrawGrid();
     }
 
-    // Draw the debug grid lines
+    // Draw the debug grid lines (visible only in the editor window)
 	void DrawGrid()
 	{
 		if (MapData == null) return;
@@ -87,8 +90,6 @@ public class Map : MonoBehaviorSingleton<Map>
 			}
 		}
 	}
-    
-    VectorLine[] gridLines;
     
     // Draw the map grid line
     void DrawGridV()
@@ -137,7 +138,44 @@ public class Map : MonoBehaviorSingleton<Map>
         }
         
     }
-
+    
+    List<VectorLine> gridObstaclesLines;
+    void DrawGridObstacles()
+    {
+        if (gridObstaclesLines != null)
+        {
+            for (int i=0; i<gridObstaclesLines.Count; i++)
+            {
+                VectorLine vl = gridObstaclesLines[i];
+                VectorLine.Destroy(ref vl);    
+            }
+        }
+        
+        gridObstaclesLines = new List<VectorLine>();
+        
+        for (int row=0; row<Rows; row++)
+		{
+            for (int col=0; col<Cols; col++)
+            {
+                if (MapData[row, col].CellType == MapCellType.Breakable || MapData[row, col].CellType == MapCellType.Unbreakable)
+                {
+                    VectorLine vlo = new VectorLine("obs", new List<Vector3>(5), null, 2.0f, LineType.Continuous);
+                    vlo.SetColor(MapData[row, col].CellType == MapCellType.Breakable ? Color.blue : Color.cyan);
+                    vlo.MakeRect(MapData[row, col].Pos + new Vector3(cellSize / -2.0f, 1.0f, cellSize / -2.0f),
+                                 MapData[row, col].Pos + new Vector3(cellSize / 2.0f, 1.0f, cellSize / 2.0f));
+                                 
+                    gridObstaclesLines.Add(vlo);
+                }
+            }
+        }
+        
+        for (int i=0; i<gridObstaclesLines.Count; i++)
+        {
+            gridObstaclesLines[i].Draw3D();    
+        }
+        
+    }
+    
 	void CreateMapData()
 	{
 		MapData = new MapCell[Rows,Cols];
@@ -149,15 +187,14 @@ public class Map : MonoBehaviorSingleton<Map>
 				MapData[row, col].CellType = MapCellType.None;
 				MapData[row, col].Row = row;
 				MapData[row, col].Col = col;
+                MapData[row, col].Pos = RowColToWorldPos(row, col);
 			}
 		}
 	}
 
-	public bool RowColToWorldPos(int row, int col, out Vector3 pos)
+	public Vector3 RowColToWorldPos(int row, int col)
 	{
-		pos = Vector3.zero;
-
-		return true;
+        return new Vector3(row * cellSize, 0.0f, col * cellSize);
 	}
 
     // Convert from world position to map position
@@ -174,5 +211,43 @@ public class Map : MonoBehaviorSingleton<Map>
         bool check = (row >= 0 && row < Rows && col >= 0 && col < Cols);
         Debug.AssertFormat(check, "Map.CheckPos failed. Row / Col: {0} / {1} is not valid.", row, col);
         return check;
+    }
+    
+    // Update the MapData structure with the celltype information
+    // The function checks only for breakable and unbreakable obstacles (not for tanks or anything else)
+    void PopulateMapInfoWithObstacles()
+    {
+        Vector3 outPos;
+        RaycastHit hit;
+        
+        for (int row=0; row<Rows; row++)
+		{
+			for (int col=0; col<Cols; col++)
+			{
+                outPos = RowColToWorldPos(row, col);
+				
+                if (Physics.Raycast(outPos + Vector3.up * 5.0f, Vector2.down, out hit, 100.0f, Layer.Breakable | Layer.Unbreakable))
+                {
+                    if (hit.transform.gameObject.layer == Layer.BreakableNum)
+                    {
+                        MapData[row, col].CellType = MapCellType.Breakable;
+                    }
+                    else if (hit.transform.gameObject.layer == Layer.UnbreakableNum)
+                    {
+                        MapData[row, col].CellType = MapCellType.Unbreakable;
+                    }
+                }
+                else
+                {
+                    MapData[row, col].CellType = MapCellType.None;
+                }
+			}
+		}
+    }
+    
+    public void Test()
+    {
+        PopulateMapInfoWithObstacles();
+        DrawGridObstacles();
     }
 }
