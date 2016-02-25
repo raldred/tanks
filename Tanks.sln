@@ -1,5 +1,6 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
 Project("{03D810E1-8C3B-C621-8E3A-8AFAF5B58C16}") = "tanks", "Assembly-CSharp.csproj", "{0E6A7987-0CB8-F888-0A22-54F1E345D877}"
 EndProject
 Project("{03D810E1-8C3B-C621-8E3A-8AFAF5B58C16}") = "tanks", "Assembly-CSharp-Editor.csproj", "{A75FC47F-4E84-1D7D-A4F3-D0674D2B4E88}"
@@ -18,6 +19,9 @@ Global
 		{A75FC47F-4E84-1D7D-A4F3-D0674D2B4E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A75FC47F-4E84-1D7D-A4F3-D0674D2B4E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A75FC47F-4E84-1D7D-A4F3-D0674D2B4E88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 																						GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj

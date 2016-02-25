@@ -1,4 +1,5 @@
-﻿public class Layer
+﻿// Layers definition
+public class Layer
 {
     public const int FloorNum           = 8;
 	public const int TankNum 		    = 9;

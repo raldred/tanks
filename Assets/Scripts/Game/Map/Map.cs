@@ -243,11 +243,6 @@ public class Map : MonoBehaviorSingleton<Map>
                 }
 			}
 		}
-    }
-    
-    public void Test()
-    {
-        PopulateMapInfoWithObstacles();
-        DrawGridObstacles();
-    }
+    }    
+
 }

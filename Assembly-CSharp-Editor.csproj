@@ -10,11 +10,10 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -24,8 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -33,8 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.XML" />
@@ -75,7 +72,6 @@
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPSettings.cs" />
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPSpriteImportData.cs" />
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPTools.cs" />
-     <Compile Include="Assets\VSCode\Plugins\Editor\VSCode.cs" />
      <None Include="Assets\Holo UI for UGUI\Readme.txt" />
      <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
      <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Changelog.txt" />
@@ -132,4 +128,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
