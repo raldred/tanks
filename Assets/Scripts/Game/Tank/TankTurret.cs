@@ -108,4 +108,17 @@ public class TankTurret
 		rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
 		rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
 	}
+
+	/// <summary>
+	/// Shoot in the specified direction
+	/// </summary>
+	public void Shoot(Vector3 dir)
+	{
+		// Get the delta angle to rotate the turret
+		float turretAngle = Vector3.Angle(turretTransform.forward, dir);
+
+		Debug.LogFormat("turretAngle: {0}", turretAngle);
+
+		turretState = TankTurretState.Firing;
+	}
 }

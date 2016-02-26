@@ -1,5 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+// Mono Framework
+using System.Collections.Generic;
+
+// Unity Engine
+using UnityEngine;
+
+// Vectrosity
+using Vectrosity;
 
 public class TankHull
 {
@@ -57,6 +64,10 @@ public class TankHull
 	/// Rotation direction. 1: CW, -1: CCW
 	/// </summary>
 	public float rotDirection;
+
+	List<KeyValuePair<int, int>> movePath;
+
+	VectorLine vl;
 
 	/// <summary>
 	/// Constructor
@@ -157,5 +168,104 @@ public class TankHull
 		endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(targetAngle), 0.0f);
 		rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
 		rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
+    }
+
+	/// <summary>
+	/// Move the tank at full speed to the specified world position
+	/// </summary>
+	public void MoveToWorldPos(Vector3 pos)
+	{
+        targetPos = pos;
+		prevDistance = Vector3.Distance(hullTransform.position, targetPos); 
+        
+		CollectRowColPath(hullTransform.position, pos);
+        DrawMovePath();
+        
+        // Get the normalized move direction
+		moveDir = Vector3.Normalize(pos - hullTransform.position);
+        
+        // Get the angle difference between the moving direction and the facing of the tank
+		float angleDif = Vector3.Angle(hullTransform.forward, moveDir);
+        
+        if (angleDif > 0.1f)
+        {
+            RotateRel(angleDif);
+        }
+        else
+        {
+            Debug.LogFormat("Already looking in the right direction");
+        }
+        
+        //vl = VectorLine.SetLine3D(debugLineColor, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(moveVars.targetPos.x, moveVars.targetPos.y + 0.1f, moveVars.targetPos.z));
+        //vl.SetWidth(2.0f);
+        //vl.Draw3D();
+	}
+
+	/// <summary>
+	/// Move the tank at full speed to the specified row/col map position. Returns false
+	/// if it's not possible to move the tank to that position.
+	/// </summary>
+	public bool MoveToRowCol(int row, int col)
+	{
+		if (Map.Instance.CheckPos(row, col))
+		{
+			MoveToWorldPos(Map.Instance.RowColToWorldPos(row, col));
+			return true;
+		}
+		else
+			return false;
+	}
+
+	void CollectRowColPath(Vector3 startPos, Vector3 endPos)
+    {
+        movePath = new List<KeyValuePair<int, int>>();
+        
+        Vector3 dir = Vector3.Normalize(endPos - startPos);
+        
+        float distance = Vector3.Distance(startPos, endPos);
+        
+        int steps = (int) Mathf.Ceil(distance / Map.Instance.cellSize);
+        
+        for (int i=1; i<steps; i++)
+        {
+            Vector3 newPos = startPos + dir * Map.Instance.cellSize * i;
+            
+            KeyValuePair<int, int> rowcol = Map.Instance.WorldPosToRowCol(newPos);
+            
+            if (!movePath.Contains(rowcol))
+            {
+                movePath.Add(rowcol);
+            }
+        }
+    }
+
+	List<VectorLine> movePathLines;
+    void DrawMovePath()
+    {
+        if (movePathLines != null)
+        {
+            for (int i=0; i<movePathLines.Count; i++)
+            {
+                VectorLine vl = movePathLines[i];
+                VectorLine.Destroy(ref vl);    
+            }
+        }
+        
+        movePathLines = new List<VectorLine>();
+        
+        for (int i=0; i<movePath.Count; i++)
+		{
+            VectorLine vlo = new VectorLine("path", new List<Vector3>(5), null, 2.0f, LineType.Continuous);
+            vlo.SetColor(tank.debugLineColor);
+            vlo.MakeRect(Map.Instance.MapData[movePath[i].Key, movePath[i].Value].Pos + new Vector3(Map.Instance.cellSize / -2.0f, 0.11f, Map.Instance.cellSize / -2.0f),
+                         Map.Instance.MapData[movePath[i].Key, movePath[i].Value].Pos + new Vector3(Map.Instance.cellSize / 2.0f, 0.11f, Map.Instance.cellSize / 2.0f));
+                                 
+            movePathLines.Add(vlo);
+        }
+        
+        for (int i=0; i<movePathLines.Count; i++)
+        {
+            movePathLines[i].Draw3D();    
+        }
     }
 }
