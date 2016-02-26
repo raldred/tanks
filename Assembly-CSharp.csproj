@@ -95,6 +95,7 @@
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPInstance.cs" />
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPSpriteInfo.cs" />
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\UITexturePacker.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Util\Angle.cs" />
      <Compile Include="Assets\Scripts\FrameLord\Util\MonoBehaviorSingleton.cs" />
      <Compile Include="Assets\Scripts\Game\Debug\UITest.cs" />
      <Compile Include="Assets\Scripts\Game\Map\Layer.cs" />

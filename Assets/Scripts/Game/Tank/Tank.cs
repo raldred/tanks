@@ -39,15 +39,16 @@ public class Tank : MonoBehaviour
     /// </summary>
     TankTurretState turretState;
     
-    // Time accumulator
-    float accumTime;
-    float accumTimeTurret;
-    
     // Current position of the tank in row/col
     KeyValuePair<int, int> currentRowCol;
     
     struct MoveVars
-    {        
+    {   
+		/// <summary>
+		/// Time accumulator
+        /// </summary>     
+		public float accumTime;
+
         /// <summary>
 		/// Move start position
         /// </summary>
@@ -86,13 +87,25 @@ public class Tank : MonoBehaviour
     
     struct TurretVars
     {
-        // Rotation from
-        public Quaternion quatFrom;
-        
-        // Rotation to
-        public Quaternion quatTo;
+		/// <summary>
+		/// Time accumulator
+        /// </summary>     
+		public float accumTimeTurret;
 
-        float faceAngle;
+		/// <summary>
+        /// Specified rotation quaternion target
+        /// </summary>
+		public Quaternion endAngleQ;
+
+		/// <summary>
+		/// Time that will take rotate the object the specified degress
+		/// </summary>
+		public float rotationTotalTime;
+
+		/// <summary>
+		/// Rotation direction. 1: CW, -1: CCW
+		/// </summary>
+		public float rotDirection;
     }
     
     List<KeyValuePair<int, int>> movePath;
@@ -132,19 +145,19 @@ public class Tank : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
+		float angle;
+
 	   	switch (hullState)
        	{
             case TankHullState.Rotating:
 
-				accumTime += Time.deltaTime * hullRotationSpeed;
-				float angle = transform.eulerAngles.y + 360.0f * Time.deltaTime * hullRotationSpeed * moveVars.rotDirection;
+				moveVars.accumTime += Time.deltaTime * hullRotationSpeed;
+				angle = transform.eulerAngles.y + 360.0f * Time.deltaTime * hullRotationSpeed * moveVars.rotDirection;
 
 				transform.localRotation = Quaternion.Euler(new Vector3(0.0f, angle, 0.0f));
 
-				if (accumTime > moveVars.rotationTotalTime)
+				if (moveVars.accumTime > moveVars.rotationTotalTime)
 				{
-					//Debug.LogFormat("Time: {0} Angle: {1}", accumTime, transform.eulerAngles.y);
-
 					transform.localRotation = moveVars.endAngleQ;
 
 					if (Vector3.Distance(transform.position, moveVars.targetPos) < 0.1f)
@@ -183,74 +196,80 @@ public class Tank : MonoBehaviour
        	switch (turretState)
        	{
             case TankTurretState.Rotating:
-                accumTimeTurret += Time.deltaTime * hullRotationSpeed;
-                turret.localRotation = Quaternion.Lerp(turretVars.quatFrom, turretVars.quatTo, accumTimeTurret);
-                
-                if (accumTime >= 1.0f)
-                {
-                    turretState = TankTurretState.Idle;
-                }
+
+				turretVars.accumTimeTurret += Time.deltaTime * hullRotationSpeed;
+				angle = turret.transform.localRotation.eulerAngles.y + 360.0f * Time.deltaTime * hullRotationSpeed * turretVars.rotDirection;
+
+				turret.transform.localRotation = Quaternion.Euler(new Vector3(0.0f, angle, 0.0f));
+
+				if (turretVars.accumTimeTurret > turretVars.rotationTotalTime)
+				{
+					turret.transform.localRotation = turretVars.endAngleQ;
+					turretState = TankTurretState.Idle;
+				}
+
                 break;
        	}
 	}
 
-	// Rotate the turret clockwise using a relative angle
-	public void RotateTurretRel(float angle)
+	/// <summary>
+	/// Rotate the turret clockwise using a relative angle
+	/// </summary>
+	public void RotateTurretRel(float angleOfs)
 	{
+		turretVars.accumTimeTurret = 0.0f;
         turretState = TankTurretState.Rotating;
-        accumTimeTurret = 0.0f;
-        
-        turretVars.quatFrom = turret.localRotation;
-        turretVars.quatTo = Quaternion.Euler(0.0f, turret.eulerAngles.y + angle, 0.0f);
+
+		float startAngle = Angle.Normalize(turret.transform.localRotation.eulerAngles.y);
+		turretVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(startAngle + angleOfs), 0.0f);
+		turretVars.rotDirection = (angleOfs > 0.0f ? 1.0f : -1.0f);
+		turretVars.rotationTotalTime = (Mathf.Abs(angleOfs) / 360.0f);
 	}
     
-    // Rotate the tower clockwise using an absolute angle
-	public void RotateTurretAbs(float angle)
+    /// <summary>
+	/// Rotate the tower clockwise using an absolute angle
+    /// </summary>
+	public void RotateTurretAbs(float targetAngle)
 	{
+		turretVars.accumTimeTurret = 0.0f;
 		turretState = TankTurretState.Rotating;
-        accumTimeTurret = 0.0f;
-        
-        turretVars.quatFrom = turret.localRotation;
-        turretVars.quatTo = Quaternion.Euler(0.0f, angle, 0.0f);
+
+		float startAngle = turret.transform.eulerAngles.y;
+		float dif = Angle.GetClosestAngleDif(startAngle, targetAngle);
+
+		turretVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(targetAngle), 0.0f);
+		turretVars.rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
+		turretVars.rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
 	}
     
     /// <summary>
 	/// Rotate all the tank, the specified degrees
     /// </summary>
-    public void RotateRel(float angle)
+	public void RotateRel(float angleOfs)
     {
-		accumTime = 0.0f;
+		moveVars.accumTime = 0.0f;
         hullState = TankHullState.Rotating;
 
-		float startAngle = normalizeAngle(transform.localRotation.eulerAngles.y);
-		moveVars.endAngleQ = Quaternion.Euler(0.0f, normalizeAngle(startAngle + angle), 0.0f);
-		moveVars.rotDirection = (angle > 0.0f ? 1.0f : -1.0f);
-		moveVars.rotationTotalTime = (angle / 360.0f);
+		float startAngle = Angle.Normalize(transform.localRotation.eulerAngles.y);
+		moveVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(startAngle + angleOfs), 0.0f);
+		moveVars.rotDirection = (angleOfs > 0.0f ? 1.0f : -1.0f);
+		moveVars.rotationTotalTime = (Mathf.Abs(angleOfs) / 360.0f);
     }	
 
     /// <summary>
 	/// Rotate all the tank, to the specified angle (in degrees)
     /// </summary>
-    public void RotateAbs(float angle)
+    public void RotateAbs(float targetAngle)
     {
-		accumTime = 0.0f;
+		moveVars.accumTime = 0.0f;
 		hullState = TankHullState.Rotating;
 
-		float startAngle = transform.eulerAngles.y % 360;
-		float endAngle = angle % 360;
+		float startAngle = transform.eulerAngles.y;
+		float dif = Angle.GetClosestAngleDif(startAngle, targetAngle);
 
-		Debug.LogFormat("1 {0} {1}", startAngle, endAngle);
-
-		if (Mathf.Abs(startAngle - endAngle) > 180.0f)
-		{
-			endAngle -= 360.0f;
-		}
-
-		moveVars.endAngleQ = Quaternion.Euler(0.0f, endAngle, 0.0f);
-		moveVars.rotDirection = (endAngle > startAngle ? 1.0f : -1.0f);
-		moveVars.rotationTotalTime = (Mathf.Abs(startAngle - endAngle) / 360.0f);
-
-		Debug.LogFormat("2 {0} {1}", startAngle, endAngle);
+		moveVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(targetAngle), 0.0f);
+		moveVars.rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
+		moveVars.rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
     }
 
 	// Move the tank at full speed to the specified world position
@@ -350,18 +369,14 @@ public class Tank : MonoBehaviour
     
     public void DebugMove2()
     {
-        RotateAbs(45.0f);
+        RotateAbs(-45.0f);
+		//RotateRel(540.0f);
     }
     
     public void DebugMove3()
     {
-		float startAngle = normalizeAngle(0);
-		float endAngle = normalizeAngle(startAngle + 350);
-
-		float angleDif = Mathf.Abs(endAngle - startAngle);
-		float totalTime = (angleDif / 360.0f) / hullRotationSpeed;
-
-		Debug.LogFormat("s: {0} e: {1} d: {2} t: {3}", startAngle, endAngle, angleDif, totalTime);
+		RotateTurretRel(180);
+		//Debug.LogFormat("{0}", turret.transform.eulerAngles.y);
     }
 
     /// <summary>
@@ -373,14 +388,5 @@ public class Tank : MonoBehaviour
         hullState = TankHullState.Idle;
     }
 
-    /// <summary>
-    /// Returns an angle that is between (-360, 360). I will call it "normalized".
-    /// </summary>
-    /// <returns>The angle normalized</returns>
-    /// <param name="angle">Angle to normalize</param>
-    float normalizeAngle(float angle)
-    {
-    	float na = angle % 360;
-    	return (na >= 0 ? na : 360 + na);
-    }
+
 }
