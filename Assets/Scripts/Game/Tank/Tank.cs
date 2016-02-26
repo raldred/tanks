@@ -17,11 +17,6 @@ public class Tank : MonoBehaviour
     public Color debugLineColor = Color.blue;
 
     /// <summary>
-	/// The turrent transform
-    /// </summary>
-    public Transform turret;
-    
-    /// <summary>
 	/// Tank Property. Hull Rotation Speed
     /// </summary>
     public float hullRotationSpeed = 1.0f;
@@ -31,199 +26,69 @@ public class Tank : MonoBehaviour
     /// </summary>
 	public float speedMovement = 5.0f;
     
-    /// State of the hull of the tank
-    TankHullState hullState;
+	/// <summary>
+	/// The turrent transform
+    /// </summary>
+    Transform turretTransform;
 
     /// <summary>
-    ///  State of the turret
+    /// Reference to the tank hull
     /// </summary>
-    TankTurretState turretState;
-    
+	TankHull hull;
+
+	/// <summary>
+	/// Reference to the tank turret
+	/// </summary>
+    TankTurret turret;
+
     // Current position of the tank in row/col
     KeyValuePair<int, int> currentRowCol;
-    
-    struct MoveVars
-    {   
-		/// <summary>
-		/// Time accumulator
-        /// </summary>     
-		public float accumTime;
 
-        /// <summary>
-		/// Move start position
-        /// </summary>
-        public Vector3 startPos;
-        
-        /// <summary>
-		/// Move target position
-        /// </summary>
-        public Vector3 targetPos;
-
-        /// <summary>
-		/// Move Direction
-        /// </summary>
-        public Vector3 moveDir;
-        
-        /// <summary>
-		/// Current distance from current pos to target pos
-        /// </summary>
-        public float prevDistance;
-
-        /// <summary>
-        /// Specified rotation quaternion target
-        /// </summary>
-		public Quaternion endAngleQ;
-
-		/// <summary>
-		/// Time that will take rotate the object the specified degress
-		/// </summary>
-		public float rotationTotalTime;
-
-		/// <summary>
-		/// Rotation direction. 1: CW, -1: CCW
-		/// </summary>
-		public float rotDirection;
-    }
-    
-    struct TurretVars
-    {
-		/// <summary>
-		/// Time accumulator
-        /// </summary>     
-		public float accumTimeTurret;
-
-		/// <summary>
-        /// Specified rotation quaternion target
-        /// </summary>
-		public Quaternion endAngleQ;
-
-		/// <summary>
-		/// Time that will take rotate the object the specified degress
-		/// </summary>
-		public float rotationTotalTime;
-
-		/// <summary>
-		/// Rotation direction. 1: CW, -1: CCW
-		/// </summary>
-		public float rotDirection;
-    }
-    
     List<KeyValuePair<int, int>> movePath;
-    
-    MoveVars moveVars = new MoveVars();
-    
-    TurretVars turretVars = new TurretVars();
-    
+
     VectorLine vl;
 
-    
 	/// <summary>
 	/// Unity Start Method
 	/// </summary>
 	void Start()
 	{
-		hullState = TankHullState.Idle;
-       	turretState = TankTurretState.Idle;
-
-		if (turret == null)
+		if (turretTransform == null)
 		{
-			turret = getTurretReference();
+			turretTransform = transform.FindChild("Turret");
 		}
+
+		hull = new TankHull(this, transform);
+		hull.Start();
+
+		turret = new TankTurret(this, turretTransform);
+		turret.Start();
 	}
 
-	/// <summary>
-	/// Get the turrent reference
-	/// </summary>
-	/// <returns>The turret reference</returns>
-	Transform getTurretReference()
-	{
-		return transform.FindChild("Turret");
-	}
-	
 	/// <summary>
 	/// Unity Update Method
 	/// </summary>
 	void Update()
 	{
-		float angle;
-
-	   	switch (hullState)
-       	{
-            case TankHullState.Rotating:
-
-				moveVars.accumTime += Time.deltaTime * hullRotationSpeed;
-				angle = transform.eulerAngles.y + 360.0f * Time.deltaTime * hullRotationSpeed * moveVars.rotDirection;
-
-				transform.localRotation = Quaternion.Euler(new Vector3(0.0f, angle, 0.0f));
-
-				if (moveVars.accumTime > moveVars.rotationTotalTime)
-				{
-					transform.localRotation = moveVars.endAngleQ;
-
-					if (Vector3.Distance(transform.position, moveVars.targetPos) < 0.1f)
-                    {
-                    	hullState = TankHullState.Idle;
-                    }
-                    else
-                    {
-                        moveVars.startPos = transform.position;
-                        hullState = TankHullState.Moving;
-                    }
-				}
-
-                break;
-                
-            case TankHullState.Moving:
-            
-               transform.position = transform.position + moveVars.moveDir * speedMovement * Time.deltaTime;
-
-               // Update the row/col position
-               currentRowCol = Map.Instance.WorldPosToRowCol(transform.position);
-                
-                float dis = Vector3.Distance(transform.position, moveVars.targetPos);
-                if (dis > moveVars.prevDistance)
-                {
-                    transform.position = moveVars.targetPos;
-                    hullState = TankHullState.Idle;
-                }
-                else
-                {
-                    moveVars.prevDistance = dis;
-                }
-                break;
-       	}
-
-       	switch (turretState)
-       	{
-            case TankTurretState.Rotating:
-
-				turretVars.accumTimeTurret += Time.deltaTime * hullRotationSpeed;
-				angle = turret.transform.localRotation.eulerAngles.y + 360.0f * Time.deltaTime * hullRotationSpeed * turretVars.rotDirection;
-
-				turret.transform.localRotation = Quaternion.Euler(new Vector3(0.0f, angle, 0.0f));
-
-				if (turretVars.accumTimeTurret > turretVars.rotationTotalTime)
-				{
-					turret.transform.localRotation = turretVars.endAngleQ;
-					turretState = TankTurretState.Idle;
-				}
-
-                break;
-       	}
+		hull.Update();
+		turret.Update();
 	}
+
+	/// <summary>
+	/// Unity OnTriggerEnter method. Called when the tank hits a trigger in the scene.
+	/// The reaction will be stop the tank immediatelly (and notify somehow?)
+    /// </summary>
+    void OnTriggerEnter(Collider other)
+    {
+        //hullState = TankHullState.Idle;
+    }
 
 	/// <summary>
 	/// Rotate the turret clockwise using a relative angle
 	/// </summary>
 	public void RotateTurretRel(float angleOfs)
 	{
-		turretVars.accumTimeTurret = 0.0f;
-        turretState = TankTurretState.Rotating;
-
-		float startAngle = Angle.Normalize(turret.transform.localRotation.eulerAngles.y);
-		turretVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(startAngle + angleOfs), 0.0f);
-		turretVars.rotDirection = (angleOfs > 0.0f ? 1.0f : -1.0f);
-		turretVars.rotationTotalTime = (Mathf.Abs(angleOfs) / 360.0f);
+		turret.RotateRel(angleOfs);
 	}
     
     /// <summary>
@@ -231,15 +96,7 @@ public class Tank : MonoBehaviour
     /// </summary>
 	public void RotateTurretAbs(float targetAngle)
 	{
-		turretVars.accumTimeTurret = 0.0f;
-		turretState = TankTurretState.Rotating;
-
-		float startAngle = turret.transform.eulerAngles.y;
-		float dif = Angle.GetClosestAngleDif(startAngle, targetAngle);
-
-		turretVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(targetAngle), 0.0f);
-		turretVars.rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
-		turretVars.rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
+		turret.RotateAbs(targetAngle);
 	}
     
     /// <summary>
@@ -247,13 +104,7 @@ public class Tank : MonoBehaviour
     /// </summary>
 	public void RotateRel(float angleOfs)
     {
-		moveVars.accumTime = 0.0f;
-        hullState = TankHullState.Rotating;
-
-		float startAngle = Angle.Normalize(transform.localRotation.eulerAngles.y);
-		moveVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(startAngle + angleOfs), 0.0f);
-		moveVars.rotDirection = (angleOfs > 0.0f ? 1.0f : -1.0f);
-		moveVars.rotationTotalTime = (Mathf.Abs(angleOfs) / 360.0f);
+		hull.RotateRel(angleOfs);
     }	
 
     /// <summary>
@@ -261,19 +112,11 @@ public class Tank : MonoBehaviour
     /// </summary>
     public void RotateAbs(float targetAngle)
     {
-		moveVars.accumTime = 0.0f;
-		hullState = TankHullState.Rotating;
-
-		float startAngle = transform.eulerAngles.y;
-		float dif = Angle.GetClosestAngleDif(startAngle, targetAngle);
-
-		moveVars.endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(targetAngle), 0.0f);
-		moveVars.rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
-		moveVars.rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
+		hull.RotateAbs(targetAngle);
     }
 
 	// Move the tank at full speed to the specified world position
-	public void MoveToWorldPos(Vector3 pos)
+	/*public void MoveToWorldPos(Vector3 pos)
 	{
         moveVars.targetPos = pos;
         moveVars.prevDistance = Vector3.Distance(transform.position, moveVars.targetPos); 
@@ -299,8 +142,7 @@ public class Tank : MonoBehaviour
         vl = VectorLine.SetLine3D(debugLineColor, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(moveVars.targetPos.x, moveVars.targetPos.y + 0.1f, moveVars.targetPos.z));
         vl.SetWidth(2.0f);
         vl.Draw3D();
-        
-	}
+	}*/
 
     void CollectRowColPath(Vector3 startPos, Vector3 endPos)
     {
@@ -364,13 +206,13 @@ public class Tank : MonoBehaviour
     
     public void DebugMove1()
     {
-        MoveToWorldPos(new Vector3(35f, 0f, 35f));
+		RotateAbs(-45.0f);
+        //MoveToWorldPos(new Vector3(35f, 0f, 35f));
     }
     
     public void DebugMove2()
     {
-        RotateAbs(-45.0f);
-		//RotateRel(540.0f);
+		RotateRel(540.0f);
     }
     
     public void DebugMove3()
@@ -379,14 +221,7 @@ public class Tank : MonoBehaviour
 		//Debug.LogFormat("{0}", turret.transform.eulerAngles.y);
     }
 
-    /// <summary>
-	/// Unity OnTriggerEnter method. Called when the tank hits a trigger in the scene.
-	/// The reaction will be stop the tank immediatelly (and notify somehow?)
-    /// </summary>
-    void OnTriggerEnter(Collider other)
-    {
-        hullState = TankHullState.Idle;
-    }
+
 
 
 }

@@ -9,7 +9,7 @@ public class UITest : MonoBehaviour
     {
         if (GUI.Button(new Rect(10, 10, 100, 100), "Move"))
         {
-            movingTank.MoveToWorldPos(new Vector3(35f, 0f, 35f));
+            //movingTank.MoveToWorldPos(new Vector3(35f, 0f, 35f));
         }
         
     }
