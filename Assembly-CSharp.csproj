@@ -119,10 +119,13 @@
      <Compile Include="Assets\Scripts\Game\Missile\F3DPool.cs" />
      <Compile Include="Assets\Scripts\Game\Missile\F3DPredictTrajectory.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\Tank.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\TankAI.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankHull.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankHullState.cs" />
+     <Compile Include="Assets\Scripts\Game\Tank\TankManager.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankTurret.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankTurretState.cs" />
+     <Compile Include="Assets\Scripts\Tanks AIs\PlayerTank.cs" />
      <None Include="Assets\Holo UI for UGUI\Readme.txt" />
      <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
      <None Include="Assets\Effects\Shaders\WarpJump.shader" />
