@@ -9,12 +9,22 @@ public class TankTurret
 	Tank tank;
 
 	/// <summary>
-	/// State of the turret of the tank
+	/// Reference to the turret game object
     /// </summary>
 	Transform turretTransform;
 
 	/// <summary>
-	/// Turret State
+	/// Reference to the turret cannon game object
+    /// </summary>
+	Transform cannonTransform;
+
+	/// <summary>
+	/// Missile spawn point
+	/// </summary>
+	Transform spawnPointTransform;
+
+	/// <summary>
+	/// State of the turret of the tank
 	/// </summary>
 	TankTurretState turretState;
 
@@ -39,12 +49,30 @@ public class TankTurret
 	float rotDirection;
 
 	/// <summary>
+	/// Missile Manager
+	/// </summary>
+	ItemPoolManager missileManager;
+
+	/// <summary>
+	/// Flying missile
+	/// </summary>
+	GameObject missile;
+
+	/// <summary>
+	/// Turret sound id
+	/// </summary>
+	int turretSndId;
+
+	/// <summary>
 	/// Constructor
 	/// </summary>
-	public TankTurret(Tank parent, Transform t)
+	public TankTurret(Tank parent, Transform turret, Transform cannon)
 	{
 		tank = parent;
-		turretTransform = t;
+		turretTransform = turret;
+		cannonTransform = cannon;
+
+		spawnPointTransform = cannonTransform.FindChild("SpawnPoint");
 	}
 
     /// <summary>
@@ -53,6 +81,9 @@ public class TankTurret
 	public void Start()
     {
 		turretState = TankTurretState.Idle;
+
+		missileManager = PoolManager.Instance.GetItemPoolManager("MissileManager");
+
 	}
 	
     /// <summary>
@@ -71,11 +102,34 @@ public class TankTurret
 
 				if (accumTimeTurret > rotationTotalTime)
 				{
+					SoundManager.Instance.StopSound(turretSndId);
+
 					turretTransform.localRotation = endAngleQ;
 					turretState = TankTurretState.Idle;
 				}
 
                 break;
+
+            case TankTurretState.Firing1:
+				accumTimeTurret += Time.deltaTime * 20.0f;
+				cannonTransform.localPosition = new Vector3(cannonTransform.localPosition.x, cannonTransform.localPosition.y, Mathf.Lerp(0.0f, -0.3f, accumTimeTurret));
+				if (accumTimeTurret >= 1.0f)
+				{
+					SoundManager.Instance.PlaySound(SndId.SND_TANK_SHOOT);
+
+					accumTimeTurret = 0.0f;
+					turretState = TankTurretState.Firing2;
+				}
+				break;
+			case TankTurretState.Firing2:
+				accumTimeTurret += Time.deltaTime * 5.0f;
+				cannonTransform.localPosition = new Vector3(cannonTransform.localPosition.x, cannonTransform.localPosition.y, Mathf.Lerp(-0.3f, 0.0f, accumTimeTurret));
+				if (accumTimeTurret >= 1.0f)
+				{
+					accumTimeTurret = 0.0f;
+					turretState = TankTurretState.Idle;
+				}
+				break;
        	}
 	}
 
@@ -91,6 +145,8 @@ public class TankTurret
 		endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(startAngle + angleOfs), 0.0f);
 		rotDirection = (angleOfs > 0.0f ? 1.0f : -1.0f);
 		rotationTotalTime = (Mathf.Abs(angleOfs) / 360.0f);
+
+		turretSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_TURRET_ROTATE);
 	}
     
     /// <summary>
@@ -107,6 +163,8 @@ public class TankTurret
 		endAngleQ = Quaternion.Euler(0.0f, Angle.Normalize(targetAngle), 0.0f);
 		rotDirection = (dif > 0.0f ? 1.0f : -1.0f);
 		rotationTotalTime = (Mathf.Abs(dif) / 360.0f);
+
+		turretSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_TURRET_ROTATE);
 	}
 
 	/// <summary>
@@ -119,6 +177,12 @@ public class TankTurret
 
 		Debug.LogFormat("turretAngle: {0}", turretAngle);
 
-		turretState = TankTurretState.Firing;
+		accumTimeTurret = 0.0f;
+		turretState = TankTurretState.Firing1;
+
+		missile = missileManager.GetItem();
+		missile.transform.position = spawnPointTransform.position;
+		missile.transform.forward = cannonTransform.forward;
+		missile.SetActive(true);
 	}
 }

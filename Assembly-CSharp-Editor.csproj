@@ -74,8 +74,25 @@
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPTools.cs" />
      <None Include="Assets\Holo UI for UGUI\Readme.txt" />
      <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
+     <None Include="Assets\Effects\Shaders\WarpJump.shader" />
+     <None Include="Assets\Effects\Shaders\Billboard.shader" />
+     <None Include="Assets\Effects\Shaders\Burnout.shader" />
+     <None Include="Assets\Effects\Shaders\Heat.shader" />
+     <None Include="Assets\Effects\Shaders\WarpTunnelDistortion.shader" />
+     <None Include="Assets\Effects\Shaders\Trail.shader" />
+     <None Include="Assets\Effects\Shaders\AlphaBlended.shader" />
+     <None Include="Assets\Effects\Shaders\Surface.shader" />
+     <None Include="Assets\Effects\Shaders\Debris.shader" />
+     <None Include="Assets\Effects\Shaders\WarpJumpDistortion.shader" />
      <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Changelog.txt" />
      <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\readme.txt" />
+     <None Include="Assets\Effects\Shaders\NebulaStaticBoard.shader" />
+     <None Include="Assets\Effects\Shaders\Holographic.shader" />
+     <None Include="Assets\Effects\Shaders\WarpJumpTwist.shader" />
+     <None Include="Assets\Effects\Shaders\ExhaustFlame.shader" />
+     <None Include="Assets\Effects\Shaders\WarpTunnel.shader" />
+     <None Include="Assets\Effects\Shaders\SmokeTurbulent.shader" />
+     <None Include="Assets\Effects\Shaders\Additive.shader" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -113,7 +130,7 @@
  <HintPath>/Applications/Unity/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
- <HintPath>/Applications/Unity/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

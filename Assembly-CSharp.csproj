@@ -95,6 +95,18 @@
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPInstance.cs" />
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\SPSpriteInfo.cs" />
      <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\UITexturePacker.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\PoolManager\IItem.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\PoolManager\ItemPoolManager.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\PoolManager\PoolManager.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\FadeAudioSource.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SMAudioSource.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SMAudioSourceGlobal.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SndType.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SoundConfigParams.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SoundList.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SoundListGame.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\FrameLord\Sound\SoundProp.cs" />
      <Compile Include="Assets\Scripts\FrameLord\Util\Angle.cs" />
      <Compile Include="Assets\Scripts\FrameLord\Util\MonoBehaviorSingleton.cs" />
      <Compile Include="Assets\Scripts\Game\Debug\UITest.cs" />
@@ -102,6 +114,10 @@
      <Compile Include="Assets\Scripts\Game\Map\Map.cs" />
      <Compile Include="Assets\Scripts\Game\Map\MapCell.cs" />
      <Compile Include="Assets\Scripts\Game\Map\MapCellType.cs" />
+     <Compile Include="Assets\Scripts\Game\Missile\F3DMissile.cs" />
+     <Compile Include="Assets\Scripts\Game\Missile\F3DParticleScale.cs" />
+     <Compile Include="Assets\Scripts\Game\Missile\F3DPool.cs" />
+     <Compile Include="Assets\Scripts\Game\Missile\F3DPredictTrajectory.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\Tank.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankHull.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankHullState.cs" />
@@ -109,8 +125,25 @@
      <Compile Include="Assets\Scripts\Game\Tank\TankTurretState.cs" />
      <None Include="Assets\Holo UI for UGUI\Readme.txt" />
      <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
+     <None Include="Assets\Effects\Shaders\WarpJump.shader" />
+     <None Include="Assets\Effects\Shaders\Billboard.shader" />
+     <None Include="Assets\Effects\Shaders\Burnout.shader" />
+     <None Include="Assets\Effects\Shaders\Heat.shader" />
+     <None Include="Assets\Effects\Shaders\WarpTunnelDistortion.shader" />
+     <None Include="Assets\Effects\Shaders\Trail.shader" />
+     <None Include="Assets\Effects\Shaders\AlphaBlended.shader" />
+     <None Include="Assets\Effects\Shaders\Surface.shader" />
+     <None Include="Assets\Effects\Shaders\Debris.shader" />
+     <None Include="Assets\Effects\Shaders\WarpJumpDistortion.shader" />
      <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Changelog.txt" />
      <None Include="Assets\Holo UI for UGUI\Simple Sprite Packer\readme.txt" />
+     <None Include="Assets\Effects\Shaders\NebulaStaticBoard.shader" />
+     <None Include="Assets\Effects\Shaders\Holographic.shader" />
+     <None Include="Assets\Effects\Shaders\WarpJumpTwist.shader" />
+     <None Include="Assets\Effects\Shaders\ExhaustFlame.shader" />
+     <None Include="Assets\Effects\Shaders\WarpTunnel.shader" />
+     <None Include="Assets\Effects\Shaders\SmokeTurbulent.shader" />
+     <None Include="Assets\Effects\Shaders\Additive.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

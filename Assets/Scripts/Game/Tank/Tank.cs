@@ -28,6 +28,11 @@ public class Tank : MonoBehaviour
     /// </summary>
     Transform turretTransform;
 
+	/// <summary>
+	/// Reference to the turret cannon game object
+    /// </summary>
+	Transform turretCannon;
+
     /// <summary>
     /// Reference to the tank hull
     /// </summary>
@@ -51,12 +56,19 @@ public class Tank : MonoBehaviour
 		if (turretTransform == null)
 		{
 			turretTransform = transform.FindChild("Turret");
+			if (turretTransform == null) Debug.LogError("Tank@Start. Cannot find child game object named Turret.");
+		}
+
+		if (turretCannon == null)
+		{
+			turretCannon = turretTransform.FindChild("Gun");
+			if (turretCannon == null) Debug.LogError("Tank@Start. Cannot find child game object named Gun.");
 		}
 
 		hull = new TankHull(this, transform);
 		hull.Start();
 
-		turret = new TankTurret(this, turretTransform);
+		turret = new TankTurret(this, turretTransform, turretCannon);
 		turret.Start();
 	}
 
@@ -145,13 +157,17 @@ public class Tank : MonoBehaviour
     
     public void DebugMove2()
     {
-		RotateRel(540.0f);
+		//RotateRel(540.0f);
+		//RotateTurretRel(180.0f);
+		MoveToRowCol(5, 5);
     }
     
     public void DebugMove3()
     {
-		RotateTurretRel(180);
+		//RotateTurretRel(180);
 		//Debug.LogFormat("{0}", turret.transform.eulerAngles.y);
+
+		SoundManager.Instance.PlaySound(SndId.SND_TANK_SHOOT);
     }
 
 

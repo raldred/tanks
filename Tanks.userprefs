@@ -1,10 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/Map/Map.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/Tank/Tank.cs">
     <Files>
-      <File FileName="Assets/Scripts/Game/Map/Layer.cs" Line="1" Column="21" />
-      <File FileName="Assets/Scripts/Game/Map/Map.cs" Line="193" Column="3" />
-      <File FileName="Assets/Scripts/Game/Tank/Tank.cs" Line="85" Column="31" />
+      <File FileName="Assets/Scripts/Game/Map/Layer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Map/Map.cs" Line="213" Column="22" />
+      <File FileName="Assets/Scripts/Game/Tank/Tank.cs" Line="64" Column="52" />
+      <File FileName="Assets/Scripts/Game/Tank/TankTurret.cs" Line="171" Column="51" />
+      <File FileName="Assets/Scripts/Game/Tank/TankTurretState.cs" Line="6" Column="9" />
+      <File FileName="Assets/Scripts/FrameLord/PoolManager/PoolManager.cs" Line="12" Column="44" />
+      <File FileName="Assets/Scripts/FrameLord/PoolManager/ItemPoolManager.cs" Line="64" Column="1" />
+      <File FileName="Assets/Scripts/Game/Missile/F3DMissile.cs" Line="95" Column="1" />
+      <File FileName="Assets/Scripts/FrameLord/PoolManager/IItem.cs" Line="4" Column="23" />
+      <File FileName="Assets/Scripts/Game/Missile/F3DParticleScale.cs" Line="42" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

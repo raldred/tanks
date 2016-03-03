@@ -65,6 +65,11 @@ public class TankHull
 	/// </summary>
 	public float rotDirection;
 
+	/// <summary>
+	/// Movement sound clip id
+	/// </summary>
+	int moveSndId;
+
 	List<KeyValuePair<int, int>> movePath;
 
 	VectorLine vl;
@@ -108,6 +113,8 @@ public class TankHull
 
 				if (Vector3.Distance(hullTransform.position, targetPos) < 0.1f)
                     {
+						SoundManager.Instance.StopSound(moveSndId);
+
                     	hullState = TankHullState.Idle;
                     }
                     else
@@ -129,6 +136,8 @@ public class TankHull
 				float dis = Vector3.Distance(hullTransform.position, targetPos);
                 if (dis > prevDistance)
                 {
+					SoundManager.Instance.StopSound(moveSndId);
+
 					hullTransform.position = targetPos;
                     hullState = TankHullState.Idle;
                 }
@@ -145,6 +154,8 @@ public class TankHull
     /// </summary>
 	public void RotateRel(float angleOfs)
     {
+		moveSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_TURRET_ROTATE);
+
 		accumTime = 0.0f;
         hullState = TankHullState.Rotating;
 
@@ -159,6 +170,8 @@ public class TankHull
     /// </summary>
     public void RotateAbs(float targetAngle)
     {
+		moveSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_TURRET_ROTATE);
+
 		accumTime = 0.0f;
 		hullState = TankHullState.Rotating;
 
@@ -175,6 +188,8 @@ public class TankHull
 	/// </summary>
 	public void MoveToWorldPos(Vector3 pos)
 	{
+		if (Vector3.Distance(hullTransform.position, pos) < 0.1f) return;
+
         targetPos = pos;
 		prevDistance = Vector3.Distance(hullTransform.position, targetPos); 
         
@@ -194,6 +209,8 @@ public class TankHull
         else
         {
             Debug.LogFormat("Already looking in the right direction");
+
+			moveSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_ENGINE);
         }
         
         //vl = VectorLine.SetLine3D(debugLineColor, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z), new Vector3(moveVars.targetPos.x, moveVars.targetPos.y + 0.1f, moveVars.targetPos.z));

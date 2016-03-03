@@ -2,6 +2,7 @@
 {
     Idle,
     Rotating,
-    Firing,
+	Firing1,
+	Firing2,
     Cooldown,
 }
