@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: 90bae945697d83b4ea8ab3f3cf629dbf
+timeCreated: 1427980694
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Tank_fragment_01
+    100004: Tank_fragment_02
+    100006: Tank_fragment_03
+    100008: Tank_fragment_04
+    100010: Tank_fragment_05
+    100012: Tank_fragment_06
+    100014: Tank_fragment_07
+    100016: Tank_fragment_08
+    100018: Tank_fragment_09
+    100020: Tank_fragment_10
+    100022: Tank_fragment_11
+    100024: Tank_fragment_12
+    100026: Tank_fragment_13
+    100028: Tank_fragment_14
+    100030: Tank_fragment_15
+    100032: Tank_fragment_16
+    100034: Tank_fragment_17
+    100036: Tank_fragment_18
+    100038: Tank_fragment_19
+    100040: Tank_fragment_20
+    100042: Tank_fragment_21
+    400000: //RootNode
+    400002: Tank_fragment_01
+    400004: Tank_fragment_02
+    400006: Tank_fragment_03
+    400008: Tank_fragment_04
+    400010: Tank_fragment_05
+    400012: Tank_fragment_06
+    400014: Tank_fragment_07
+    400016: Tank_fragment_08
+    400018: Tank_fragment_09
+    400020: Tank_fragment_10
+    400022: Tank_fragment_11
+    400024: Tank_fragment_12
+    400026: Tank_fragment_13
+    400028: Tank_fragment_14
+    400030: Tank_fragment_15
+    400032: Tank_fragment_16
+    400034: Tank_fragment_17
+    400036: Tank_fragment_18
+    400038: Tank_fragment_19
+    400040: Tank_fragment_20
+    400042: Tank_fragment_21
+    2300000: Tank_fragment_01
+    2300002: Tank_fragment_02
+    2300004: Tank_fragment_03
+    2300006: Tank_fragment_04
+    2300008: Tank_fragment_05
+    2300010: Tank_fragment_06
+    2300012: Tank_fragment_07
+    2300014: Tank_fragment_08
+    2300016: Tank_fragment_09
+    2300018: Tank_fragment_10
+    2300020: Tank_fragment_11
+    2300022: Tank_fragment_12
+    2300024: Tank_fragment_13
+    2300026: Tank_fragment_14
+    2300028: Tank_fragment_15
+    2300030: Tank_fragment_16
+    2300032: Tank_fragment_17
+    2300034: Tank_fragment_18
+    2300036: Tank_fragment_19
+    2300038: Tank_fragment_20
+    2300040: Tank_fragment_21
+    3300000: Tank_fragment_01
+    3300002: Tank_fragment_02
+    3300004: Tank_fragment_03
+    3300006: Tank_fragment_04
+    3300008: Tank_fragment_05
+    3300010: Tank_fragment_06
+    3300012: Tank_fragment_07
+    3300014: Tank_fragment_08
+    3300016: Tank_fragment_09
+    3300018: Tank_fragment_10
+    3300020: Tank_fragment_11
+    3300022: Tank_fragment_12
+    3300024: Tank_fragment_13
+    3300026: Tank_fragment_14
+    3300028: Tank_fragment_15
+    3300030: Tank_fragment_16
+    3300032: Tank_fragment_17
+    3300034: Tank_fragment_18
+    3300036: Tank_fragment_19
+    3300038: Tank_fragment_20
+    3300040: Tank_fragment_21
+    4300000: Tank_fragment_21
+    4300002: Tank_fragment_20
+    4300004: Tank_fragment_19
+    4300006: Tank_fragment_18
+    4300008: Tank_fragment_17
+    4300010: Tank_fragment_16
+    4300012: Tank_fragment_15
+    4300014: Tank_fragment_14
+    4300016: Tank_fragment_13
+    4300018: Tank_fragment_12
+    4300020: Tank_fragment_11
+    4300022: Tank_fragment_10
+    4300024: Tank_fragment_09
+    4300026: Tank_fragment_08
+    4300028: Tank_fragment_07
+    4300030: Tank_fragment_06
+    4300032: Tank_fragment_05
+    4300034: Tank_fragment_04
+    4300036: Tank_fragment_03
+    4300038: Tank_fragment_02
+    4300040: Tank_fragment_01
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
