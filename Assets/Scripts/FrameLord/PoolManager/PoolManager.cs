@@ -14,8 +14,10 @@ public class PoolManager : MonoBehaviorSingleton<PoolManager>
 	/// <summary>
 	/// Unity Awake Method
 	/// </summary>
-	void Awake()
+	new void Awake()
 	{
+		base.Awake();
+
 		pools = new Dictionary<string, ItemPoolManager>();
 
 		ItemPoolManager[] itemPools = GetComponents<ItemPoolManager>();

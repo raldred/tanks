@@ -48,6 +48,24 @@ public class Tank : MonoBehaviour
 
     List<KeyValuePair<int, int>> movePath;
 
+    /// <summary>
+    /// Reference to the tank ai. This reference is initially null, then TankManager will call SetAI to set
+    /// the reference when the tank is instantiated
+    /// </summary>
+    TankAI tankAI;
+
+    /// <summary>
+    /// Returns the reference to the ai
+    /// </summary>
+    public TankAI AI
+    {
+    	get
+    	{ 
+			Debug.AssertFormat(tankAI != null, "Tank@AI. tankAI is null. SetAI method was not already called to set the reference of the AI in this tank ({0})", name);
+    		return tankAI; 
+    	}
+    }
+
 	/// <summary>
 	/// Unity Start Method
 	/// </summary>
@@ -147,30 +165,8 @@ public class Tank : MonoBehaviour
 		return hull.MoveToRowCol(row, col);
 	}
 
-    public void DebugMove1()
+    public void SetAI(TankAI ai)
     {
-		//RotateAbs(-45.0f);
-        //MoveToWorldPos(new Vector3(35f, 0f, 35f));
-		//MoveToRowCol(-2, 4);
-		Shoot(new Vector3(1.0f, 0.0f, 1.0f));
+		tankAI = ai;
     }
-    
-    public void DebugMove2()
-    {
-		//RotateRel(540.0f);
-		//RotateTurretRel(180.0f);
-		MoveToRowCol(5, 5);
-    }
-    
-    public void DebugMove3()
-    {
-		//RotateTurretRel(180);
-		//Debug.LogFormat("{0}", turret.transform.eulerAngles.y);
-
-		SoundManager.Instance.PlaySound(SndId.SND_TANK_SHOOT);
-    }
-
-
-
-
 }

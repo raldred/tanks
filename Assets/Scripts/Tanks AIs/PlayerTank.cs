@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerTank : MonoBehaviour, TankAI
+public class PlayerTank : TankAI
 {
 	/// <summary>
 	/// Tank Init
 	/// </summary>
-	public void Init()
+	public override void Init()
 	{
 	
 	}
@@ -14,8 +14,18 @@ public class PlayerTank : MonoBehaviour, TankAI
 	/// <summary>
 	/// Tank Think
 	/// </summary>
-	public void Think()
+	public override void Think()
 	{
 	
+	}
+
+	public override void OnShoot()
+	{
+		Debug.Log("Tank.OnShoot");
+	}
+
+	public override void OnShootHit(GameObject hittedGameObject)
+	{
+		Debug.LogFormat("Tank.OnShootHit: {0}", hittedGameObject.name);
 	}
 }

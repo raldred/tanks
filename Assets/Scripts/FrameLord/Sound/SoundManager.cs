@@ -42,13 +42,14 @@ public class SoundManager : MonoBehaviorSingleton<SoundManager>
     SoundProp currentMusicSndProp = null;
 	
 	bool playingIntro = false;
-	int CurrentMusicId;
 
 	/// <summary>
 	/// Unity Awake Method
 	/// </summary>
-	void Awake()
+	new void Awake()
 	{
+		base.Awake();
+
 		Init();
 	}
 	
@@ -333,7 +334,6 @@ public class SoundManager : MonoBehaviorSingleton<SoundManager>
 		
         if (sp != null)
         {
-			CurrentMusicId = introId;
             currentMusicSndProp = sp;
 
             if (fadeOutCurrent && music.isPlaying)
@@ -359,7 +359,6 @@ public class SoundManager : MonoBehaviorSingleton<SoundManager>
 
         if (sp != null)
         {
-			CurrentMusicId = sndId;
             currentMusicSndProp = sp;
 
             if (fadeOutCurrent && music.isPlaying)
@@ -457,7 +456,6 @@ public class SoundManager : MonoBehaviorSingleton<SoundManager>
 
         if (sp != null)
         {
-			CurrentMusicId = sndId;
             currentMusicSndProp = sp;
 
             // Set the position of the current camera in order to play the sound balanced

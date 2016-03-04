@@ -14,7 +14,9 @@ public enum SndId : int
 
 	SND_TANK_ENGINE = 0,
 	SND_TANK_TURRET_ROTATE,
-	SND_TANK_SHOOT
+	SND_TANK_SHOOT,
+	SND_EXPLOSION_OBSTACLE,
+	SND_TANK_EXPLOSION
 }
 
 /// <summary>
@@ -26,6 +28,8 @@ public class SoundListGame : SoundList
 		new SoundProp((int) SndId.SND_TANK_ENGINE,     		"TANK_Movement_Slow_Rocky_Terrain_loop_mono",    	1,  true, SndType.SND_FX, 100),
 		new SoundProp((int) SndId.SND_TANK_TURRET_ROTATE,   "TANK_Turret_Rotate_01_loop_mono",    	1,  true, SndType.SND_FX, 100),
 		new SoundProp((int) SndId.SND_TANK_SHOOT,     		"TANK_Shoot_01",    	1,  false, SndType.SND_FX, 100),
+		new SoundProp((int) SndId.SND_EXPLOSION_OBSTACLE,   "EXPLOSION_Obstacle",    	1,  false, SndType.SND_FX, 100),
+		new SoundProp((int) SndId.SND_TANK_EXPLOSION,     	"TANK_Explosion",    	1,  false, SndType.SND_FX, 100),
 
 	};
 

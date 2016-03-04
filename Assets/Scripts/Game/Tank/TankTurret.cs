@@ -175,8 +175,6 @@ public class TankTurret
 		// Get the delta angle to rotate the turret
 		float turretAngle = Vector3.Angle(turretTransform.forward, dir);
 
-		Debug.LogFormat("turretAngle: {0}", turretAngle);
-
 		accumTimeTurret = 0.0f;
 		turretState = TankTurretState.Firing1;
 
@@ -184,5 +182,13 @@ public class TankTurret
 		missile.transform.position = spawnPointTransform.position;
 		missile.transform.forward = cannonTransform.forward;
 		missile.SetActive(true);
+		missile.GetComponent<Missile>().SetOnMissileHit(OnMissileHit);
+
+		tank.AI.OnShoot();
+	}
+
+	void OnMissileHit(Missile missile, GameObject hittedGameObject)
+	{
+		tank.AI.OnShootHit(hittedGameObject);
 	}
 }
