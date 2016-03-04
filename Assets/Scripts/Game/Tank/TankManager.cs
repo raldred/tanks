@@ -53,7 +53,7 @@ public class TankManager : MonoBehaviorSingleton<TankManager>
 
 		tankDic.Clear();
 
-		spawnTank(spawnPoint, new Vector3(0f, 0f, 1f), 0);
+		spawnTank(spawnPoint, SpawnPointManager.Instance.GetSpawnPointFaceDir(0), 0);
 	}
 
 	void spawnTank(KeyValuePair<int, int> spawnPoint, Vector3 faceDir, int num)

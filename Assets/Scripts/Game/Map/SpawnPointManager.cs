@@ -47,4 +47,14 @@ public class SpawnPointManager : MonoBehaviorSingleton<SpawnPointManager>
 		else
 			return new KeyValuePair<int, int>(0, 0);
 	}
+
+	public Vector3 GetSpawnPointFaceDir(int num)
+	{
+		if (num >= 0 && num < spawnPoints.Length)
+		{
+			return spawnPoints[num].transform.forward;
+		}
+		else
+			return Vector3.forward;
+	}
 }
