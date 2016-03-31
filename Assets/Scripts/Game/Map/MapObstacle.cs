@@ -13,8 +13,24 @@ public class MapObstacle : MonoBehaviour
     // Obstacle health (make sense if the obstacle is breakable)
     public float health = 5.0f;
 
+    // Y position offset value
+    public float yPos = 0.0f;
+
+    // Row positive extension
+    public float rowPosExtension = 0;
+
+	// Row negative extension
+	public float rowNegExtension = 0;
+
+	// Col positive extension
+	public float colPosExtension = 0;
+
+	// Col negative extension
+	public float colNegExtension = 0;
+
+
     // Cell where the obstacle is related
-	MapCell cell;
+	protected MapCell cell;
 
     // Unity Start Method
     protected void Start()
@@ -36,7 +52,7 @@ public class MapObstacle : MonoBehaviour
 	void doSnapPosition()
     {
 		float x = (Mathf.Floor(transform.position.x / Map.Instance.cellSize) * Map.Instance.cellSize);
-		float y = 0.0f;
+		float y = yPos;
 		float z = (Mathf.Floor(transform.position.z / Map.Instance.cellSize) * Map.Instance.cellSize);
 		transform.position = new Vector3(x, y, z);
     }

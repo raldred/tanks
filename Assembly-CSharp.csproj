@@ -139,9 +139,9 @@
      <Compile Include="Assets\Scripts\Game\Map\MapObstacle.cs" />
      <Compile Include="Assets\Scripts\Game\Map\SpawnPoint.cs" />
      <Compile Include="Assets\Scripts\Game\Map\SpawnPointManager.cs" />
+     <Compile Include="Assets\Scripts\Game\Map\Tree.cs" />
      <Compile Include="Assets\Scripts\Game\Missile\IMissileReceptor.cs" />
      <Compile Include="Assets\Scripts\Game\Missile\Missile.cs" />
-     <Compile Include="Assets\Scripts\Game\Missile\Tree.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\Tank.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankAI.cs" />
      <Compile Include="Assets\Scripts\Game\Tank\TankHull.cs" />

@@ -186,8 +186,6 @@ public class TankTurret
         
         List<Tank> tanks = TankManager.Instance.GetTanks();
         
-        Debug.LogFormat("Found tanks: {0}", tanks.Count);
-        
         Vector3 pos = turretTransform.position;
         
         for (int i=0; i<tanks.Count; i++)
@@ -208,7 +206,21 @@ public class TankTurret
 
 		MapObstacle[] obstacles = Map.Instance.GetObstacles();
 
-		Debug.LogFormat("Found obstacles: {0}", obstacles.Length);
+		for (int i=0; i<obstacles.Length; i++)
+        {
+            // 1. Check the distance
+			if (Vector3.Distance(pos, obstacles[i].transform.position) < tank.prop.viewDistance)
+            {
+                // 2. Check the angle
+				Vector3 p1 = obstacles[i].transform.position - pos;
+                if (Vector3.Angle(p1, turretTransform.forward) <= tank.prop.viewAngle / 2.0f)
+                {
+					vi.AddObstacleInfo(obstacles[i]);
+                }
+            }
+        }
+
+		Debug.LogFormat("Visible {0} of {1} tanks and {2} obstacles", vi.GetTankCount(), tanks.Count, vi.GetEntityCount() - vi.GetTankCount());
 
         return vi;
     }

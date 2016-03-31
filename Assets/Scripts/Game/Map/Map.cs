@@ -223,38 +223,6 @@ public class Map : MonoBehaviorSingleton<Map>
         return check;
     }
     
-    // Update the MapData structure with the celltype information
-    // The function checks only for breakable and unbreakable obstacles (not for tanks or anything else)
-    void PopulateMapInfoWithObstaclesOLD()
-    {
-        /*Vector3 outPos;
-        RaycastHit hit;
-        
-        for (int row=0; row<Rows; row++)
-		{
-			for (int col=0; col<Cols; col++)
-			{
-                outPos = RowColToWorldPos(row, col);
-				
-                if (Physics.Raycast(outPos + Vector3.up * 5.0f, Vector2.down, out hit, 100.0f, Layer.Breakable | Layer.Unbreakable))
-                {
-                    if (hit.transform.gameObject.layer == Layer.BreakableNum)
-                    {
-                        MapData[row, col].CellType = MapCellType.Breakable;
-                    }
-                    else if (hit.transform.gameObject.layer == Layer.UnbreakableNum)
-                    {
-                        MapData[row, col].CellType = MapCellType.Unbreakable;
-                    }
-                }
-                else
-                {
-                    MapData[row, col].CellType = MapCellType.None;
-                }
-			}
-		}*/
-    }   
-
 	// Update the MapData structure with the celltype information
     // The function checks only for breakable and unbreakable obstacles (not for tanks or anything else)
     void PopulateMapInfoWithObstacles()
@@ -269,7 +237,14 @@ public class Map : MonoBehaviorSingleton<Map>
 			mapData[row, col].Obstacle = obs[i];
 			obs[i].SetCell(mapData[row, col]);
 
-			Debug.LogFormat("pos: {0} row: {1} col: {2}", obs[i].transform.position, row, col);
+			if (obs[i].rowPosExtension == 1 && row + 1 < rows) mapData[row + 1, col].Obstacle = obs[i];
+			if (obs[i].rowNegExtension == 1 && row - 1 >= 0) mapData[row - 1, col].Obstacle = obs[i];
+			if (obs[i].colPosExtension == 1 && col + 1 < cols) mapData[row, col + 1].Obstacle = obs[i];
+			if (obs[i].colNegExtension == 1 && col - 1 >= 0) mapData[row, col - 1].Obstacle = obs[i];
+			if (obs[i].rowPosExtension == 1 && row + 1 < rows && obs[i].colPosExtension == 1 && col + 1 < cols) mapData[row + 1, col + 1].Obstacle = obs[i];
+			if (obs[i].rowNegExtension == 1 && row - 1 >= 0 && obs[i].colPosExtension == 1 && col + 1 < cols) mapData[row - 1, col + 1].Obstacle = obs[i];
+			if (obs[i].rowPosExtension == 1 && row + 1 < rows && obs[i].colNegExtension == 1 && col - 1 >= 0) mapData[row + 1, col - 1].Obstacle = obs[i];
+			if (obs[i].rowNegExtension == 1 && row - 1 >= 0 && obs[i].colNegExtension == 1 && col - 1 >= 0) mapData[row - 1, col - 1].Obstacle = obs[i];
 		}
     } 
 
