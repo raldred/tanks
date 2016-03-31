@@ -102,8 +102,8 @@ public class TankHull
        	{
             case TankHullState.Rotating:
 
-				accumTime += Time.deltaTime * tank.hullRotationSpeed;
-				angle = hullTransform.eulerAngles.y + 360.0f * Time.deltaTime * tank.hullRotationSpeed * rotDirection;
+				accumTime += Time.deltaTime * tank.prop.hullRotationSpeed;
+				angle = hullTransform.eulerAngles.y + 360.0f * Time.deltaTime * tank.prop.hullRotationSpeed * rotDirection;
 
 				hullTransform.localRotation = Quaternion.Euler(new Vector3(0.0f, angle, 0.0f));
 
@@ -128,7 +128,7 @@ public class TankHull
                 
             case TankHullState.Moving:
             
-				hullTransform.position = hullTransform.position + moveDir * tank.speedMovement * Time.deltaTime;
+				hullTransform.position = hullTransform.position + moveDir * tank.prop.speedMovement * Time.deltaTime;
 
                	// Update the row/col position
 				//currentRowCol = Map.Instance.WorldPosToRowCol(hullTransform.position);
@@ -274,8 +274,8 @@ public class TankHull
 		{
             VectorLine vlo = new VectorLine("path", new List<Vector3>(5), null, 2.0f, LineType.Continuous);
             vlo.SetColor(tank.debugLineColor);
-            vlo.MakeRect(Map.Instance.MapData[movePath[i].Key, movePath[i].Value].Pos + new Vector3(Map.Instance.cellSize / -2.0f, 0.11f, Map.Instance.cellSize / -2.0f),
-                         Map.Instance.MapData[movePath[i].Key, movePath[i].Value].Pos + new Vector3(Map.Instance.cellSize / 2.0f, 0.11f, Map.Instance.cellSize / 2.0f));
+            vlo.MakeRect(Map.Instance.mapData[movePath[i].Key, movePath[i].Value].Pos + new Vector3(Map.Instance.cellSize / -2.0f, 0.11f, Map.Instance.cellSize / -2.0f),
+                         Map.Instance.mapData[movePath[i].Key, movePath[i].Value].Pos + new Vector3(Map.Instance.cellSize / 2.0f, 0.11f, Map.Instance.cellSize / 2.0f));
                                  
             movePathLines.Add(vlo);
         }

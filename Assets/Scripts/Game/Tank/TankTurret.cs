@@ -1,71 +1,48 @@
-﻿// Unity Engine
+﻿// Mono Framework
+using System.Collections.Generic;
+
+// Unity Engine
 using UnityEngine;
 
 public class TankTurret
 {
-	/// <summary>
-	/// Tank reference
-	/// </summary>
+	// Tank reference
 	Tank tank;
 
-	/// <summary>
-	/// Reference to the turret game object
-    /// </summary>
+	// Reference to the turret game object
 	Transform turretTransform;
 
-	/// <summary>
-	/// Reference to the turret cannon game object
-    /// </summary>
+	// Reference to the turret cannon game object
 	Transform cannonTransform;
 
-	/// <summary>
-	/// Missile spawn point
-	/// </summary>
+	// Missile spawn point
 	Transform spawnPointTransform;
 
-	/// <summary>
-	/// State of the turret of the tank
-	/// </summary>
+	// State of the turret of the tank
 	TankTurretState turretState;
 
-	/// <summary>
-	/// Time accumulator
-    /// </summary>     
+	// Time accumulator
 	float accumTimeTurret;
 
-	/// <summary>
-    /// Specified rotation quaternion target
-    /// </summary>
+    // Specified rotation quaternion target
 	Quaternion endAngleQ;
 
-	/// <summary>
-	/// Time that will take rotate the object the specified degress
-	/// </summary>
+	// Time that will take rotate the object the specified degress
 	float rotationTotalTime;
 
-	/// <summary>
-	/// Rotation direction. 1: CW, -1: CCW
-	/// </summary>
+	// Rotation direction. 1: CW, -1: CCW
 	float rotDirection;
 
-	/// <summary>
-	/// Missile Manager
-	/// </summary>
+	// Missile Manager
 	ItemPoolManager missileManager;
 
-	/// <summary>
-	/// Flying missile
-	/// </summary>
+	// Flying missile
 	GameObject missile;
 
-	/// <summary>
-	/// Turret sound id
-	/// </summary>
+	// Turret sound id
 	int turretSndId;
 
-	/// <summary>
-	/// Constructor
-	/// </summary>
+	// Constructor
 	public TankTurret(Tank parent, Transform turret, Transform cannon)
 	{
 		tank = parent;
@@ -75,9 +52,7 @@ public class TankTurret
 		spawnPointTransform = cannonTransform.FindChild("SpawnPoint");
 	}
 
-    /// <summary>
-	/// Custom Start Method
-    /// </summary>
+	// Custom Start Method
 	public void Start()
     {
 		turretState = TankTurretState.Idle;
@@ -86,17 +61,15 @@ public class TankTurret
 
 	}
 	
-    /// <summary>
-	/// Custom Update Method
-    /// </summary>
+	// Custom Update Method
 	public void Update()
     {
 		switch (turretState)
        	{
             case TankTurretState.Rotating:
 
-				accumTimeTurret += Time.deltaTime * tank.hullRotationSpeed;
-				float angle = turretTransform.localRotation.eulerAngles.y + 360.0f * Time.deltaTime * tank.hullRotationSpeed * rotDirection;
+				accumTimeTurret += Time.deltaTime * tank.prop.hullRotationSpeed;
+				float angle = turretTransform.localRotation.eulerAngles.y + 360.0f * Time.deltaTime * tank.prop.hullRotationSpeed * rotDirection;
 
 				turretTransform.localRotation = Quaternion.Euler(new Vector3(0.0f, angle, 0.0f));
 
@@ -133,9 +106,7 @@ public class TankTurret
        	}
 	}
 
-	/// <summary>
-	/// Rotate the turret clockwise using a relative angle
-	/// </summary>
+	// Rotate the turret clockwise using a relative angle
 	public void RotateRel(float angleOfs)
 	{
 		accumTimeTurret = 0.0f;
@@ -149,9 +120,7 @@ public class TankTurret
 		turretSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_TURRET_ROTATE);
 	}
     
-    /// <summary>
-	/// Rotate the tower clockwise using an absolute angle
-    /// </summary>
+	// Rotate the tower clockwise using an absolute angle
 	public void RotateAbs(float targetAngle)
 	{
 		accumTimeTurret = 0.0f;
@@ -167,28 +136,80 @@ public class TankTurret
 		turretSndId = SoundManager.Instance.PlaySound(SndId.SND_TANK_TURRET_ROTATE);
 	}
 
-	/// <summary>
-	/// Shoot in the specified direction
-	/// </summary>
+    System.DateTime lastShootTime = System.DateTime.MinValue;
+    
+	// Shoot in the specified direction
 	public void Shoot(Vector3 dir)
 	{
-		// Get the delta angle to rotate the turret
-		float turretAngle = Vector3.Angle(turretTransform.forward, dir);
+        System.TimeSpan ts = System.DateTime.Now - lastShootTime;
+        
+        if (turretState != TankTurretState.Firing1 && ts.TotalSeconds > tank.prop.shootCoolDown)
+        {
+            lastShootTime = System.DateTime.Now;
+            
+            // Get the delta angle to rotate the turret
+            float turretAngle = Vector3.Angle(turretTransform.forward, dir);
 
-		accumTimeTurret = 0.0f;
-		turretState = TankTurretState.Firing1;
+            accumTimeTurret = 0.0f;
+            turretState = TankTurretState.Firing1;
 
-		missile = missileManager.GetItem();
-		missile.transform.position = spawnPointTransform.position;
-		missile.transform.forward = cannonTransform.forward;
-		missile.SetActive(true);
-		missile.GetComponent<Missile>().SetOnMissileHit(OnMissileHit);
+            missile = missileManager.GetItem();
+            missile.transform.position = spawnPointTransform.position;
+            missile.transform.forward = cannonTransform.forward;
+            missile.SetActive(true);
+            missile.GetComponent<Missile>().SetOnMissileHit(OnMissileHit);
 
-		tank.AI.OnShoot();
+            tank.AI.OnShoot();
+        }
+        else
+        {
+            Debug.LogFormat("TankTurret@Shoot. Cannot shoot. Last shoot is still too recent. State: {0}", turretState);
+        }
 	}
+
+    // Returns true if it's possible for the turret to shoot    
+    public bool CanShoot()
+    {
+        System.TimeSpan ts = System.DateTime.Now - lastShootTime;
+        return (turretState != TankTurretState.Firing1 && ts.TotalSeconds > tank.prop.shootCoolDown);
+    }
 
 	void OnMissileHit(Missile missile, GameObject hittedGameObject)
 	{
 		tank.AI.OnShootHit(hittedGameObject);
 	}
+    
+    // Returns the info of the radar. The visible tanks are returned with this method 
+    public ViewInfo GetViewInfo()
+    {
+        ViewInfo vi = new ViewInfo();
+        
+        List<Tank> tanks = TankManager.Instance.GetTanks();
+        
+        Debug.LogFormat("Found tanks: {0}", tanks.Count);
+        
+        Vector3 pos = turretTransform.position;
+        
+        for (int i=0; i<tanks.Count; i++)
+        {
+            if (tank == tanks[i]) continue;
+            
+            // 1. Check the distance
+            if (Vector3.Distance(pos, tanks[i].transform.position) < tank.prop.viewDistance)
+            {
+                // 2. Check the angle
+                Vector3 p1 = tanks[i].transform.position - pos;
+                if (Vector3.Angle(p1, turretTransform.forward) <= tank.prop.viewAngle / 2.0f)
+                {
+                    vi.AddTankInfo(tanks[i]);
+                }
+            }
+        }
+
+		MapObstacle[] obstacles = Map.Instance.GetObstacles();
+
+		Debug.LogFormat("Found obstacles: {0}", obstacles.Length);
+
+        return vi;
+    }
 }

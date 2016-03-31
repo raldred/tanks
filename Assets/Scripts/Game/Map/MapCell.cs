@@ -11,7 +11,7 @@ public struct MapCell
     
     // World Position of the center of the cell
     public Vector3 Pos;
-    
-    // Type of obstacle
-	public MapCellType CellType;
+
+	// Reference to the obstacle if there is any
+	public MapObstacle Obstacle;
 }

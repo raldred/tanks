@@ -4,24 +4,19 @@ using System.Collections.Generic;
 // Unity Engine
 using UnityEngine;
 
-public class Tree : MonoBehaviour, IMissileReceptor
+public class Tree : MapObstacle, IMissileReceptor
 {
-	/// <summary>
-    /// Reference to the explosion manager
-    /// </summary>
+    // Reference to the explosion manager
     ItemPoolManager explosionManager;
 
-	/// <summary>
-	/// Unity Start Method
-    /// </summary>
-    void Start()
+	// Unity Start Method
+    new void Start()
     {
+        base.Start();
 		explosionManager = PoolManager.Instance.GetItemPoolManager("ExplosionManager");
     }
 
-	/// <summary>
-	/// Direct hit
-	/// </summary>
+	// Direct hit
 	public void DirectHit(float missileHitDamage, Vector3 hitPosition)
 	{
 		GameObject explosion = explosionManager.GetItem();
@@ -32,13 +27,9 @@ public class Tree : MonoBehaviour, IMissileReceptor
 		SoundManager.Instance.PlaySound(SndId.SND_EXPLOSION_OBSTACLE);
 	}
 
-
-	/// <summary>
-	/// Area hit
-	/// </summary>
+	// Area hit
 	public void AreaHit(float missileHitDamage, Vector3 hitPosition)
 	{
-
-	}
+    }
 	
 }

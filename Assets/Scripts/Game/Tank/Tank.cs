@@ -8,39 +8,22 @@ public delegate void TankEventNotification();
 
 public class Tank : MonoBehaviour
 {
-	/// <summary>
-	/// Color of the debug lines for this tank
-	/// </summary>
+	// Color of the debug lines for this tank
     public Color debugLineColor = Color.blue;
 
-    /// <summary>
-	/// Tank Property. Hull Rotation Speed
-    /// </summary>
-    public float hullRotationSpeed = 1.0f;
-    
-	/// <summary>
-	/// Tank Property. Movement Speed
-    /// </summary>
-	public float speedMovement = 5.0f;
-    
-	/// <summary>
-	/// The turrent transform
-    /// </summary>
+    // Structure of properties
+	public TankProperty prop = new TankProperty();
+
+	// The turrent transform
     Transform turretTransform;
 
-	/// <summary>
-	/// Reference to the turret cannon game object
-    /// </summary>
+	// Reference to the turret cannon game object
 	Transform turretCannon;
 
-    /// <summary>
-    /// Reference to the tank hull
-    /// </summary>
+    // Reference to the tank hull
 	TankHull hull;
 
-	/// <summary>
-	/// Reference to the tank turret
-	/// </summary>
+	// Reference to the tank turret
     TankTurret turret;
 
     // Current position of the tank in row/col
@@ -48,15 +31,11 @@ public class Tank : MonoBehaviour
 
     List<KeyValuePair<int, int>> movePath;
 
-    /// <summary>
-    /// Reference to the tank ai. This reference is initially null, then TankManager will call SetAI to set
-    /// the reference when the tank is instantiated
-    /// </summary>
+    // Reference to the tank ai. This reference is initially null, then TankManager will call SetAI to set
+    // the reference when the tank is instantiated
     TankAI tankAI;
 
-    /// <summary>
-    /// Returns the reference to the ai
-    /// </summary>
+    // Returns the reference to the ai
     public TankAI AI
     {
     	get
@@ -66,9 +45,7 @@ public class Tank : MonoBehaviour
     	}
     }
 
-	/// <summary>
-	/// Unity Start Method
-	/// </summary>
+	// Unity Start Method
 	void Start()
 	{
 		if (turretTransform == null)
@@ -90,9 +67,7 @@ public class Tank : MonoBehaviour
 		turret.Start();
 	}
 
-	/// <summary>
-	/// Unity Update Method
-	/// </summary>
+	// Unity Update Method
 	void Update()
 	{
 		hull.Update();
@@ -168,5 +143,17 @@ public class Tank : MonoBehaviour
     public void SetAI(TankAI ai)
     {
 		tankAI = ai;
+    }
+    
+    // Returns the info of the radar. The visible tanks are returned with this method 
+    public ViewInfo GetViewInfo()
+    {
+        return turret.GetViewInfo();
+    }
+    
+    // Set and changes the material of the tank
+    public void SetMaterial(Material m)
+    {
+        
     }
 }

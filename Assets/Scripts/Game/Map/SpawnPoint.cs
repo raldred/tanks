@@ -25,9 +25,9 @@ public class SpawnPoint : MonoBehaviour
 	{
 		if (!Application.isPlaying)
 		{
-			float x = (Mathf.Floor(transform.position.x / Map.Instance.cellSize) * Map.Instance.cellSize);// + (Map.Instance.cellSize / 2.0f);
+			float x = (Mathf.Floor(transform.position.x / Map.Instance.cellSize) * Map.Instance.cellSize);
 			float y = 0.75f;
-			float z = (Mathf.Floor(transform.position.z / Map.Instance.cellSize) * Map.Instance.cellSize);// + (Map.Instance.cellSize / 2.0f);
+			float z = (Mathf.Floor(transform.position.z / Map.Instance.cellSize) * Map.Instance.cellSize);
 
 			transform.position = new Vector3(x, y, z);
 		}
