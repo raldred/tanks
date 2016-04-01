@@ -17,5 +17,8 @@ public class TankProperty
     
     // View distance
     public float viewDistance = 1000.0f;
+
+    // Tank health
+    public float health = 10.0f;
 }
 

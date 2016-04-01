@@ -8,91 +8,57 @@ public delegate void OnMissileHit(Missile missile, GameObject hittedGameObject);
 
 public class Missile : MonoBehaviour, IItem
 {
-	/// <summary>
-	/// Layer mask
-	/// </summary>
+	// Layer mask
     public LayerMask layerMask;
 
     public float missileDamage = 10.0f;
 
-    /// <summary>
-    /// Detonation distance
-    /// </summary>
+    // Detonation distance
     public float detonationDistance = 15f;
 
-    /// <summary>
-    /// Missile life time
-    /// </summary>
+    // Missile life time
     public float lifeTime = 5f;
 
-    /// <summary>
-	/// Delay despawn in ms
-    /// </summary>
+	// Delay despawn in ms
     public float despawnDelay;
 
-    /// <summary>
-	/// Missile velocity
-    /// </summary>
+	// Missile velocity
     public float velocity = 10f;
 
-    /// <summary>
-	/// Missile despawn flag
-    /// </summary>
+	// Missile despawn flag
     public bool DelayDespawn = false;
 
-    /// <summary>
-	/// Array of delayed particles
-    /// </summary>
+	// Array of delayed particles
     public ParticleSystem[] delayedParticles;
 
-    /// <summary>
-	/// Array of Missile particles
-    /// </summary>
+	// Array of Missile particles
     ParticleSystem[] particles;
 
-    /// <summary>
-	/// Cached transform
-    /// </summary>
+	// Cached transform
     new Transform transform;
 
-    /// <summary>
-	/// Missile hit flag
-    /// </summary>
+	// Missile hit flag
     bool isHit = false;
 
-    /// <summary>
-	/// Missile timer
-    /// </summary>
+	// Missile timer
     float timer = 0f;
 
-    /// <summary>
-    /// Missile flying direction
-    /// </summary>
+    // Missile flying direction
     Vector3 missileDir;
 
-    /// <summary>
-    /// Reference to the mesh renderer
-    /// </summary>
+    // Reference to the mesh renderer
     MeshRenderer meshRenderer;
 
-    /// <summary>
-    /// Reference to the missile manager
-    /// </summary>
+    // Reference to the missile manager
     ItemPoolManager missileManager;
 
-    /// <summary>
-    /// Reference to the function that will be called when the missile hit something
-    /// </summary>
+    // Reference to the function that will be called when the missile hit something
 	OnMissileHit onMissileHitFn;
 
-	/// <summary>
-	/// Which game object was hitted by the missile
-	/// </summary>
+	// Which game object was hitted by the missile
 	GameObject hittedGameObject;
 
-    /// <summary>
-    /// Unity Awake Method
-    /// </summary>
+    // Unity Awake Method
     void Awake()
     {
         // Cache transform and get all particle systems attached
@@ -101,17 +67,13 @@ public class Missile : MonoBehaviour, IItem
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
-	/// <summary>
-	/// Unity Start Method
-    /// </summary>
+	// Unity Start Method
     void Start()
     {
 		missileManager = PoolManager.Instance.GetItemPoolManager("MissileManager");
     }
 
-	/// <summary>
-    /// Unity Update Method
-    /// </summary>
+    // Unity Update Method
     void Update()
     {       
         // If something was hit
@@ -157,10 +119,8 @@ public class Missile : MonoBehaviour, IItem
         timer += Time.deltaTime;
     }
 
-    /// <summary>
-	/// IItem.OnSpawned implementation
-	/// OnSpawned called by pool manager 
-    /// </summary>
+    // IItem.OnSpawned implementation
+	// OnSpawned called by pool manager 
     public void OnSpawned()
     {       
         isHit = false;
@@ -170,10 +130,8 @@ public class Missile : MonoBehaviour, IItem
 		hittedGameObject = null;
     }
 
-	/// <summary>
-	/// IItem.OnDespawned implementation
-	/// OnDespawned called by pool manager when the missile is being recycled.
-    /// </summary>
+	// IItem.OnDespawned implementation
+	// OnDespawned called by pool manager when the missile is being recycled.
     public void OnDespawned()
     {          
     }

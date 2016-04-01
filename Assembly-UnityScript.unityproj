@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{12B6329C-70A2-DCB6-D6DE-8AD661A04B4D}</ProjectGuid>
+    <ProjectGuid>{D44B84EE-2B2C-9039-421B-A2A4233179E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
+    <AssemblyName>Assembly-UnityScript</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,7 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
+     <Compile Include="Assets\Fire FX\Scripts\GameObjectSpawner.js" />
+     <Compile Include="Assets\Fire FX\Scripts\LookAtCamera.js" />
+     <Compile Include="Assets\Fire FX\Scripts\RandomRotate.js" />
      <None Include="Assets\Vectrosity 5\Vectrosity 5 Documentation\Vectrosity5 Upgrade Guide.txt" />
      <None Include="Assets\Holo UI for UGUI\Readme.txt" />
      <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
@@ -56,8 +58,10 @@
      <None Include="Assets\Effects\Shaders\WarpTunnelDistortion.shader" />
      <None Include="Assets\Effects\Shaders\Trail.shader" />
      <None Include="Assets\Vectrosity 5\Vectrosity 5 Documentation\Vectrosity changelog.txt" />
+     <None Include="Assets\Fire FX\Scripts\Simple Particle Scale\Simple Particle Scale - Readme.txt" />
      <None Include="Assets\Effects\Shaders\AlphaBlended.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
+     <None Include="Assets\Fire FX\FireFX - Readme.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
      <None Include="Assets\Effects\Shaders\Surface.shader" />
      <None Include="Assets\Effects\Shaders\Debris.shader" />
@@ -71,7 +75,6 @@
      <None Include="Assets\Effects\Shaders\ExhaustFlame.shader" />
      <None Include="Assets\Low Poly City\Standard Assets\Vehicles\Car\CarGuidelines.txt" />
      <None Include="Assets\Effects\Shaders\WarpTunnel.shader" />
-     <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
      <None Include="Assets\Effects\Shaders\SmokeTurbulent.shader" />
      <None Include="Assets\Effects\Shaders\Additive.shader" />
  <Reference Include="UnityEngine.UI">
@@ -83,6 +86,10 @@
  <Reference Include="Vectrosity">
  <HintPath>/Users/diego/Documents/Projects/itba/tanks/Assets/Plugins/Vectrosity/Vectrosity.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{12B6329C-70A2-DCB6-D6DE-8AD661A04B4D}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

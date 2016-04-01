@@ -6,7 +6,7 @@ using UnityEngine;
 
 public delegate void TankEventNotification();
 
-public class Tank : MonoBehaviour
+public class Tank : MonoBehaviour, IMissileReceptor
 {
 	// Color of the debug lines for this tank
     public Color debugLineColor = Color.blue;
@@ -34,6 +34,18 @@ public class Tank : MonoBehaviour
     // Reference to the tank ai. This reference is initially null, then TankManager will call SetAI to set
     // the reference when the tank is instantiated
     TankAI tankAI;
+
+	// Reference to the explosion manager
+    ItemPoolManager explosionManager;
+
+    // Reference to the pool manager
+    ItemPoolManager flameManager;
+
+	// Reference to the pool manager
+    ItemPoolManager detonationManager;
+
+	// Destroy timer
+	float destroyTimer;
 
     // Returns the reference to the ai
     public TankAI AI
@@ -65,6 +77,15 @@ public class Tank : MonoBehaviour
 
 		turret = new TankTurret(this, turretTransform, turretCannon);
 		turret.Start();
+
+		if (Application.isPlaying)
+        {
+			explosionManager = PoolManager.Instance.GetItemPoolManager("ExplosionManager");
+
+			flameManager = PoolManager.Instance.GetItemPoolManager("FlameManager");
+
+			detonationManager = PoolManager.Instance.GetItemPoolManager("DetonationManager");
+		}
 	}
 
 	// Unity Update Method
@@ -72,69 +93,92 @@ public class Tank : MonoBehaviour
 	{
 		hull.Update();
 		turret.Update();
+
+		if (destroyTimer > 0.0f)
+		{
+			destroyTimer -= Time.deltaTime;
+
+			if (destroyTimer <= 0.0f)
+			{
+				GameObject detonationItem = detonationManager.GetItem();
+				detonationItem.transform.position = new Vector3(transform.position.x, 1.7f, transform.position.z);
+				detonationItem.SetActive(true);
+				detonationManager.RecycleItemAfterSecs(detonationItem, 3.0f);
+
+				UnityEngine.Object.Destroy(this.gameObject);
+			}
+		}
 	}
 
-	/// <summary>
-	/// Unity OnTriggerEnter method. Called when the tank hits a trigger in the scene.
-	/// The reaction will be stop the tank immediatelly (and notify somehow?)
-    /// </summary>
-    void OnTriggerEnter(Collider other)
-    {
-        //hullState = TankHullState.Idle;
+	// Direct hit
+	public void DirectHit(float missileHitDamage, Vector3 hitPosition)
+	{
+		GameObject explosionItem = explosionManager.GetItem();
+		explosionItem.transform.position = hitPosition;
+		explosionItem.SetActive(true);
+		explosionItem.GetComponent<ParticleSystem>().Play();
+		explosionManager.RecycleItemAfterSecs(explosionItem, 3.0f);
+
+		SoundManager.Instance.PlaySound(SndId.SND_EXPLOSION_OBSTACLE);
+
+		prop.health = Mathf.Clamp(prop.health - missileHitDamage, 0.0f, float.MaxValue);
+
+		if (prop.health == 0.0f)
+		{
+			GameObject flameItem = flameManager.GetItem();
+			flameItem.transform.position = new Vector3(transform.position.x, 1.7f, transform.position.z);
+			flameItem.SetActive(true);
+			flameItem.GetComponent<ParticleSystem>().Play();
+			flameManager.RecycleItemAfterSecs(flameItem, 3.0f);
+
+			// Destroy the object in 3 seconds
+			destroyTimer = 3.0f;
+		}
+	}
+
+	// Area hit
+	public void AreaHit(float missileHitDamage, Vector3 hitPosition)
+	{
     }
 
-	/// <summary>
-	/// Rotate the turret clockwise using a relative angle
-	/// </summary>
+	// Rotate the turret clockwise using a relative angle
 	public void RotateTurretRel(float angleOfs)
 	{
 		turret.RotateRel(angleOfs);
 	}
     
-    /// <summary>
-	/// Rotate the tower clockwise using an absolute angle
-    /// </summary>
+	// Rotate the tower clockwise using an absolute angle
 	public void RotateTurretAbs(float targetAngle)
 	{
 		turret.RotateAbs(targetAngle);
 	}
     
-    /// <summary>
-	/// Rotate all the tank, the specified degrees
-    /// </summary>
+	// Rotate all the tank, the specified degrees
 	public void RotateRel(float angleOfs)
     {
 		hull.RotateRel(angleOfs);
     }	
 
-    /// <summary>
-	/// Rotate all the tank, to the specified angle (in degrees)
-    /// </summary>
+	// Rotate all the tank, to the specified angle (in degrees)
     public void RotateAbs(float targetAngle)
     {
 		hull.RotateAbs(targetAngle);
     }
 
-	/// <summary>
-	/// Move the tank at full speed to the specified world position
-	/// </summary>
+	// Move the tank at full speed to the specified world position
 	public void MoveToWorldPos(Vector3 pos)
 	{
         hull.MoveToWorldPos(pos);
 	}
 
-	/// <summary>
-	/// Shoot in the specified direction. The y component is ignored
-	/// </summary>
+	// Shoot in the specified direction. The y component is ignored
 	public void Shoot(Vector3 dir)
 	{
 		turret.Shoot(dir);
 	}
 
-	/// <summary>
-	/// Move the tank at full speed to the specified row/col map position. Returns false
-	/// if it's not possible to move the tank to that position.
-	/// </summary>
+	// Move the tank at full speed to the specified row/col map position. Returns false
+	// if it's not possible to move the tank to that position.
 	public bool MoveToRowCol(int row, int col)
 	{
 		return hull.MoveToRowCol(row, col);

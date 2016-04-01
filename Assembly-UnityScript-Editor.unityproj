@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A75FC47F-4E84-1D7D-A4F3-D0674D2B4E88}</ProjectGuid>
+    <ProjectGuid>{E91C62AA-53AD-1C36-E6D7-D39954DA4F16}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Assembly-UnityScript-Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,34 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Enums, Structs and Serializables\AnimationTriggersExtendedDrawer.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Enums, Structs and Serializables\ColorBlockExtendedDrawer.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Enums, Structs and Serializables\SpriteStateExtendedDrawer.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Miscellaneous\BitMaskEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Miscellaneous\ColorPropertyDrawer.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Miscellaneous\UIAnimatorControllerGenerator.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Raycast Filters\UICircularRaycastFilterEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Raycast Filters\UIRectangularRaycastFilterEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\Tools\NavigationTools.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectFieldEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectField_ArrowEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectField_LabelEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\Select Field\UISelectField_ListEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIButtonExtendedEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIButtonExtended_TargetEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIDragObjectEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIHighlightTransitionEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UISliderExtendedEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UITabEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Scripts\Editor\UI\UIWindowEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPAtlasBuilder.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPDropWindow.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPInstanceEditor.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPReferenceReplacerWindow.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPSettings.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPSpriteImportData.cs" />
-     <Compile Include="Assets\Holo UI for UGUI\Simple Sprite Packer\Scripts\Editor\SPTools.cs" />
-     <Compile Include="Assets\Low Poly City\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+     <Compile Include="Assets\Fire FX\Scripts\Simple Particle Scale\Scripts\Editor\ParticleScaler.js" />
      <None Include="Assets\Vectrosity 5\Vectrosity 5 Documentation\Vectrosity5 Upgrade Guide.txt" />
      <None Include="Assets\Holo UI for UGUI\Readme.txt" />
      <None Include="Assets\Holo UI for UGUI\Changelog.txt" />
@@ -83,8 +56,10 @@
      <None Include="Assets\Effects\Shaders\WarpTunnelDistortion.shader" />
      <None Include="Assets\Effects\Shaders\Trail.shader" />
      <None Include="Assets\Vectrosity 5\Vectrosity 5 Documentation\Vectrosity changelog.txt" />
+     <None Include="Assets\Fire FX\Scripts\Simple Particle Scale\Simple Particle Scale - Readme.txt" />
      <None Include="Assets\Effects\Shaders\AlphaBlended.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
+     <None Include="Assets\Fire FX\FireFX - Readme.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
      <None Include="Assets\Effects\Shaders\Surface.shader" />
      <None Include="Assets\Effects\Shaders\Debris.shader" />
@@ -98,7 +73,6 @@
      <None Include="Assets\Effects\Shaders\ExhaustFlame.shader" />
      <None Include="Assets\Low Poly City\Standard Assets\Vehicles\Car\CarGuidelines.txt" />
      <None Include="Assets\Effects\Shaders\WarpTunnel.shader" />
-     <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
      <None Include="Assets\Effects\Shaders\SmokeTurbulent.shader" />
      <None Include="Assets\Effects\Shaders\Additive.shader" />
  <Reference Include="UnityEditor.Advertisements">
